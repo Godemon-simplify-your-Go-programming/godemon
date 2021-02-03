@@ -7,14 +7,14 @@ import (
 	"time"
 )
 
-func watchFile(filePath string) error {
-	initialStat, err := os.Stat(filePath)
+func watch(fileordirPath string) error {
+	initialStat, err := os.Stat(fileordirPath)
 	if err != nil {
 		return err
 	}
 
 	for {
-		stat, err := os.Stat(filePath)
+		stat, err := os.Stat(fileordirPath)
 		if err != nil {
 			return err
 		}
@@ -31,24 +31,42 @@ func watchFile(filePath string) error {
 
 func main() {
 	doneChan := make(chan bool)
+	filepath := os.Args[1]
+	modOrFile := os.Args[2]
+	fmt.Println(filepath)
 	for true {
 		go func(doneChan chan bool) {
 			defer func() {
 				doneChan <- true
 			}()
 
-			err := watchFile("./app/main.go")
+			err := watch(filepath)
 			if err != nil {
 				fmt.Println(err)
 			}
 
 			fmt.Println("File has been changed")
-			cmd := exec.Command("go", "run", "./app/main.go")
-			cmd.Stdout = os.Stdout
-			cmd.Stderr = os.Stderr
-			cmd.Run()
-		}(doneChan)
+			os.Chdir(filepath)
 
+			if modOrFile == "mod" {
+				cmd := exec.Command("go", "build")
+				cmd.Stdout = os.Stdout
+				cmd.Stderr = os.Stderr
+				cmd.Run()
+				cmd = exec.Command("./app")
+				cmd.Stdout = os.Stdout
+				cmd.Stderr = os.Stderr
+				cmd.Run()
+				cmd.Process.Kill()
+			} else if modOrFile == "file" {
+				cmd := exec.Command("go", "run", filepath)
+				cmd.Stdout = os.Stdout
+				cmd.Stderr = os.Stderr
+				cmd.Run()
+				cmd.Process.Kill()
+			}
+
+		}(doneChan)
 		<-doneChan
 	}
 }
