@@ -49,7 +49,7 @@ func main() {
 			os.Chdir(filepath)
 
 			if modOrFile == "mod" {
-				cmd := exec.Command("go", "build")
+				cmd := exec.Command("go", "build", "-o", "app")
 				cmd.Stdout = os.Stdout
 				cmd.Stderr = os.Stderr
 				cmd.Run()
