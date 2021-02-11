@@ -56,15 +56,18 @@ func main() {
 				cmd.Stdout = os.Stdout
 				cmd.Stderr = os.Stderr
 				cmd.Run()
-				cmd = exec.Command("go", "build", "-o", "app")
+				cmd = exec.Command("go", "build", "-o", "app-godemon-app-godemon-tmp-generated")
 				cmd.Stdout = os.Stdout
 				cmd.Stderr = os.Stderr
 				cmd.Run()
-				cmd = exec.Command("./app")
+				cmd = exec.Command("./app-godemon-app-godemon-tmp-generated")
 				cmd.Stdout = os.Stdout
 				cmd.Stderr = os.Stderr
 				cmd.Run()
-				cmd.Process.Kill()
+				cmd = exec.Command("killall", "-9", "app-godemon-app-godemon-tmp-generated")
+				cmd.Stdout = os.Stdout
+				cmd.Stderr = os.Stderr
+				cmd.Run()
 			} else if modOrFile == "file" {
 				log = time.Now().Format("2006-01-02, 15:04 \n\n")
 				log = `Building project: ` + log + `Program result: `
@@ -72,10 +75,7 @@ func main() {
 				cmd.Stdout = os.Stdout
 				cmd.Stderr = os.Stderr
 				cmd.Run()
-				cmd = exec.Command("go", "run", filepath)
-				cmd.Stdout = os.Stdout
-				cmd.Stderr = os.Stderr
-				cmd.Run()
+
 				cmd.Process.Kill()
 			}
 
