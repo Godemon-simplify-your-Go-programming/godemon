@@ -18,7 +18,7 @@ argument you're choosing is it simple go file or go module - if module pass
 argument - `mod` , if file pass argument - `file`
 
 ### Installing `godemon` with `installer.sh`
-1. `wget https://github.com/nProgrammer/godemon/releases/download/1.0.0/installer.sh`
+1. `wget https://github.com/nProgrammer/godemon/releases/download/1.1.0/installer.sh`
 2. `sudo chmod 777 ./installer.sh`
 3. `./installer.sh`
 
