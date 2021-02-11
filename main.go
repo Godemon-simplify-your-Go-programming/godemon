@@ -20,6 +20,10 @@ func watch(fileordirPath string) error {
 		}
 
 		if stat.Size() != initialStat.Size() || stat.ModTime() != initialStat.ModTime() {
+			cmd := exec.Command("killall", "-9", "app-godemon-app-godemon-tmp-generated")
+			cmd.Stdout = os.Stdout
+			cmd.Stderr = os.Stderr
+			cmd.Run()
 			break
 		}
 
@@ -27,6 +31,13 @@ func watch(fileordirPath string) error {
 	}
 
 	return nil
+}
+
+func execMOD() {
+	cmd := exec.Command("./app-godemon-app-godemon-tmp-generated")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Run()
 }
 
 func main() {
@@ -60,25 +71,10 @@ func main() {
 				cmd.Stdout = os.Stdout
 				cmd.Stderr = os.Stderr
 				cmd.Run()
-				cmd = exec.Command("./app-godemon-app-godemon-tmp-generated")
-				cmd.Stdout = os.Stdout
-				cmd.Stderr = os.Stderr
-				cmd.Run()
-				cmd = exec.Command("killall", "-9", "app-godemon-app-godemon-tmp-generated")
-				cmd.Stdout = os.Stdout
-				cmd.Stderr = os.Stderr
-				cmd.Run()
+				go execMOD()
 			} else if modOrFile == "file" {
-				log = time.Now().Format("2006-01-02, 15:04 \n\n")
-				log = `Building project: ` + log + `Program result: `
-				cmd := exec.Command("printf", "\\e[1;34m%-6s\\e[m\n", log)
-				cmd.Stdout = os.Stdout
-				cmd.Stderr = os.Stderr
-				cmd.Run()
 
-				cmd.Process.Kill()
 			}
-
 		}(doneChan)
 		<-doneChan
 	}
