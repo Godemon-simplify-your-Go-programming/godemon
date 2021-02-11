@@ -12,7 +12,7 @@ First of all you need to build your version:
 
 ### Using default `./godemon`
 Now you can move file `godemon` to folder with your go project and 
-start it using command: `./godemon <fileOrDir> <fileOrModule>`.
+start it using command: `./godemon cnf <command>` or `./godemon cmd <fileOrDir> <fileOrModule>`.
 In first argument you're giving godemon the path to project, and in second
 argument you're choosing is it simple go file or go module - if module pass
 argument - `mod` , if file pass argument - `file`
@@ -31,3 +31,20 @@ argument - `mod` , if file pass argument - `file`
 ### Installing `godemon` from `godemon.exe`
 1. Download `godemon.exe`
 2. Add path to `godemon.exe` to system PATH
+
+### How to work with configuration json file
+1. Create in project file `godemon-cnf.json`
+2. Create configuration of commands - sample code: 
+
+```
+{
+    "commands": [
+        {
+            "name": "run",
+            "path": "/home/nwagner/Desktop/godemon/api/",
+            "file": "mod"
+        }
+    ]
+}
+```
+3. Now use command: `godemon cnf <command-name>`

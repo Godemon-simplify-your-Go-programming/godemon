@@ -1,6 +1,10 @@
 package controllers
 
 import (
+	"encoding/json"
+	"fmt"
+	"godemon/models"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"time"
@@ -27,4 +31,29 @@ func TimeLog() {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Run()
+}
+
+func ProgramStarting(cnf string, filepath string, modOrFile string) (string, string) {
+	if cnf == "cmd" {
+		filepath = os.Args[2]
+		modOrFile = os.Args[3]
+	} else if cnf == "cnf" {
+		command := os.Args[2]
+		jsonFile, err := os.Open("godemon-cnf.json")
+		ErrorHandle(err)
+		defer jsonFile.Close()
+		byteValue, err := ioutil.ReadAll(jsonFile)
+		ErrorHandle(err)
+		var commands models.Commands
+		json.Unmarshal(byteValue, &commands)
+		for i := 0; i < len(commands.Commands); i++ {
+			if command == commands.Commands[i].Name {
+				fmt.Println(commands.Commands[i].Path)
+				fmt.Println(commands.Commands[i].Option)
+				filepath = commands.Commands[i].Path
+				modOrFile = commands.Commands[i].Option
+			}
+		}
+	}
+	return filepath, modOrFile
 }
