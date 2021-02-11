@@ -5,30 +5,7 @@ import (
 	"godemon/controllers"
 	"os"
 	"os/exec"
-	"time"
 )
-
-func watch(fileordirPath string) error {
-	initialStat, err := os.Stat(fileordirPath)
-	if err != nil {
-		return err
-	}
-	for {
-		stat, err := os.Stat(fileordirPath)
-		if err != nil {
-			return err
-		}
-		if stat.Size() != initialStat.Size() || stat.ModTime() != initialStat.ModTime() {
-			cmd := exec.Command("killall", "-9", "app-godemon-app-godemon-tmp-generated")
-			cmd.Stdout = os.Stdout
-			cmd.Stderr = os.Stderr
-			cmd.Run()
-			break
-		}
-		time.Sleep(1 * time.Second)
-	}
-	return nil
-}
 
 func main() {
 	doneChan := make(chan bool)
@@ -42,7 +19,7 @@ func main() {
 			defer func() {
 				doneChan <- true
 			}()
-			err := watch(filepath)
+			err := controllers.WatchFiles(filepath)
 			if err != nil {
 				fmt.Println(err)
 			}

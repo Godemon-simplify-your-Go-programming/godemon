@@ -57,3 +57,25 @@ func ProgramStarting(cnf string, filepath string, modOrFile string) (string, str
 	}
 	return filepath, modOrFile
 }
+
+func WatchFiles(fileordirPath string) error {
+	initialStat, err := os.Stat(fileordirPath)
+	if err != nil {
+		return err
+	}
+	for {
+		stat, err := os.Stat(fileordirPath)
+		if err != nil {
+			return err
+		}
+		if stat.Size() != initialStat.Size() || stat.ModTime() != initialStat.ModTime() {
+			cmd := exec.Command("killall", "-9", "app-godemon-app-godemon-tmp-generated")
+			cmd.Stdout = os.Stdout
+			cmd.Stderr = os.Stderr
+			cmd.Run()
+			break
+		}
+		time.Sleep(1 * time.Second)
+	}
+	return nil
+}
