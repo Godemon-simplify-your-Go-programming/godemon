@@ -34,6 +34,7 @@ func main() {
 	filepath := os.Args[1]
 	modOrFile := os.Args[2]
 	fmt.Println(filepath)
+	var log string
 	for true {
 		go func(doneChan chan bool) {
 			defer func() {
@@ -49,7 +50,13 @@ func main() {
 			os.Chdir(filepath)
 
 			if modOrFile == "mod" {
-				cmd := exec.Command("go", "build", "-o", "app")
+				log = time.Now().Format("2006-01-02, 15:04 \n\n")
+				log = `Building project: ` + log + `Program result: `
+				cmd := exec.Command("printf", "\\e[1;34m%-6s\\e[m\n", log)
+				cmd.Stdout = os.Stdout
+				cmd.Stderr = os.Stderr
+				cmd.Run()
+				cmd = exec.Command("go", "build", "-o", "app")
 				cmd.Stdout = os.Stdout
 				cmd.Stderr = os.Stderr
 				cmd.Run()
@@ -59,7 +66,13 @@ func main() {
 				cmd.Run()
 				cmd.Process.Kill()
 			} else if modOrFile == "file" {
-				cmd := exec.Command("go", "run", filepath)
+				log = time.Now().Format("2006-01-02, 15:04 \n\n")
+				log = `Building project: ` + log + `Program result: `
+				cmd := exec.Command("printf", "\\e[1;34m%-6s\\e[m\n", log)
+				cmd.Stdout = os.Stdout
+				cmd.Stderr = os.Stderr
+				cmd.Run()
+				cmd = exec.Command("go", "run", filepath)
 				cmd.Stdout = os.Stdout
 				cmd.Stderr = os.Stderr
 				cmd.Run()
