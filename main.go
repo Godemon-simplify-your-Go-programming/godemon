@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"godemon/controllers"
 	"os"
 	"os/exec"
 	"time"
@@ -33,29 +34,6 @@ func watch(fileordirPath string) error {
 	return nil
 }
 
-func execMOD() {
-	cmd := exec.Command("./app-godemon-app-godemon-tmp-generated")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	cmd.Run()
-}
-
-func execFile(filepath string) {
-	cmd := exec.Command("go", "run", filepath)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	cmd.Run()
-}
-
-func timeLog() {
-	log := time.Now().Format("2006-01-02, 15:04 \n\n")
-	log = `Building project: ` + log + `Program result: `
-	cmd := exec.Command("printf", "\\e[1;34m%-6s\\e[m\n", log)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	cmd.Run()
-}
-
 func main() {
 	doneChan := make(chan bool)
 	filepath := os.Args[1]
@@ -75,15 +53,15 @@ func main() {
 			fmt.Println("File has been changed")
 			if modOrFile == "mod" {
 				os.Chdir(filepath)
-				timeLog()
+				controllers.TimeLog()
 				cmd := exec.Command("go", "build", "-o", "app-godemon-app-godemon-tmp-generated")
 				cmd.Stdout = os.Stdout
 				cmd.Stderr = os.Stderr
 				cmd.Run()
-				go execMOD()
+				go controllers.ExecMOD()
 			} else if modOrFile == "file" {
-				timeLog()
-				go execFile(filepath)
+				controllers.TimeLog()
+				go controllers.ExecFile(filepath)
 			}
 		}(doneChan)
 		<-doneChan
