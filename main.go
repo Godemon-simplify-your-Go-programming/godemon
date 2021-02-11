@@ -1,8 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"godemon/controllers"
+	"godemon/models"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"time"
@@ -36,8 +39,28 @@ func watch(fileordirPath string) error {
 
 func main() {
 	doneChan := make(chan bool)
-	filepath := os.Args[1]
-	modOrFile := os.Args[2]
+	cnf := os.Args[1]
+	var filepath string
+	var modOrFile string
+	if cnf == "cmd" {
+		filepath = os.Args[2]
+		modOrFile = os.Args[3]
+	} else if cnf == "cnf" {
+		command := os.Args[2]
+		jsonFile, _ := os.Open("godemon-cnf.json")
+		byteValue, _ := ioutil.ReadAll(jsonFile)
+		var commands models.Commands
+		json.Unmarshal(byteValue, &commands)
+		for i := 0; i < len(commands.Commands); i++ {
+			if command == commands.Commands[i].Name {
+				fmt.Println(commands.Commands[i].Path)
+				fmt.Println(commands.Commands[i].Option)
+				filepath = commands.Commands[i].Path
+				modOrFile = commands.Commands[i].Option
+			}
+		}
+		jsonFile.Close()
+	}
 	fmt.Println(filepath)
 	for true {
 		go func(doneChan chan bool) {
