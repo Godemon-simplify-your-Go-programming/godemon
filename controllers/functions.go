@@ -80,6 +80,44 @@ func killProcess() {
 	cmd.Run()
 }
 
+func cnfCnfLoad(projectInfo models.ProjectInfo, command string, filepath string, modOrFile string) (string, string) {
+	commandsL := projectInfo.Commands.Commands
+	for i := 0; i < len(commandsL); i++ {
+		if command == commandsL[i].Name {
+			fmt.Println(commandsL[i].Path)
+			fmt.Println(commandsL[i].Option)
+			filepath = commandsL[i].Path
+			modOrFile = commandsL[i].Option
+		}
+	}
+	return filepath, modOrFile
+}
+
+func cnfDepLoad(projectInfo models.ProjectInfo, command string, filepath string, modOrFile string) {
+	log := time.Now().Format("2006-01-02, 15:04 \n\n")
+	log = `Building project: ` + log + `: `
+	cmd := exec.Command("printf", "\\e[1;34m%-6s\\e[m\n", log)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Run()
+	path := projectInfo.Project.Path
+	osP := projectInfo.Project.OS
+	arch := projectInfo.Project.Arch
+	goos := "GOOS=" + osP
+	archos := "GOARCH=" + arch
+	name := projectInfo.Project.Name
+	os.Chdir(path)
+	cmd = exec.Command("env", goos, archos, "go", "build", "-o", name)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Run()
+	cmd = exec.Command("printf", "\\e[1;34m%-6s\\e[m\n", "Project builded")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Run()
+	os.Exit(1)
+}
+
 func loadDataFromCnf(cnf *string, command string, filepath string, modOrFile string) (string, string) {
 	jsonFile, err := os.Open("godemon-cnf.json")
 	ErrorHandle(err)
@@ -89,38 +127,9 @@ func loadDataFromCnf(cnf *string, command string, filepath string, modOrFile str
 	var projectInfo models.ProjectInfo
 	json.Unmarshal(byteValue, &projectInfo)
 	if *cnf == "cnf" {
-		commandsL := projectInfo.Commands.Commands
-		for i := 0; i < len(commandsL); i++ {
-			if command == commandsL[i].Name {
-				fmt.Println(commandsL[i].Path)
-				fmt.Println(commandsL[i].Option)
-				filepath = commandsL[i].Path
-				modOrFile = commandsL[i].Option
-			}
-		}
+		cnfCnfLoad(projectInfo, command, "", "")
 	} else if *cnf == "deploy" {
-		log := time.Now().Format("2006-01-02, 15:04 \n\n")
-		log = `Building project: ` + log + `: `
-		cmd := exec.Command("printf", "\\e[1;34m%-6s\\e[m\n", log)
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
-		cmd.Run()
-		path := projectInfo.Project.Path
-		osP := projectInfo.Project.OS
-		arch := projectInfo.Project.Arch
-		goos := "GOOS=" + osP
-		archos := "GOARCH=" + arch
-		name := projectInfo.Project.Name
-		os.Chdir(path)
-		cmd = exec.Command("env", goos, archos, "go", "build", "-o", name)
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
-		cmd.Run()
-		cmd = exec.Command("printf", "\\e[1;34m%-6s\\e[m\n", "Project builded")
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
-		cmd.Run()
-		os.Exit(1)
+		cnfDepLoad(projectInfo, command, "", "")
 	}
 	return filepath, modOrFile
 }
