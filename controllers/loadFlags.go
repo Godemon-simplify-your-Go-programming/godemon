@@ -17,5 +17,8 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 	filepath = *filepathP
 	command := *commandP
 	modOrFile = *modOrFileP
+	if cnf == "" {
+		*helpP = true
+	}
 	return filepath, modOrFile, cnf, command, helpP
 }

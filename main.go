@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	version := "2.0.0"
+	version := "2.0.5"
 	doneChan := make(chan bool)
 	filepath, modOrFile, cnf, command, help := controllers.LoadCMD("", "")
 	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version)
