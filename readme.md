@@ -40,13 +40,27 @@ If you need help with clie use command `./godemon -help`
 
 ```
 {
-    "commands": [
-        {
-            "name": "run",
-            "path": "/home/nwagner/Desktop/godemon/api/",
-            "file": "mod"
-        }
-    ]
+  "project": {
+    "name": "api2",
+    "platformOS": "linux",
+    "platformArch": "amd64",
+    "path": "/home/nwagner/Desktop/godemon/api/"
+  },
+  "commands": [
+    {
+      "name": "run",
+      "path": "/home/nwagner/Desktop/godemon/api/",
+      "file": "mod"
+    },
+    {
+     "name": "run-single-file",
+      "path": "/home/nwagner/Desktop/godemon/api/main.go",
+      "option": "file"
+    }
+  ]
 }
 ```
-3. Now use command: `godemon -cnf=cnf -command=<command-name>`
+3. Now use command: `godemon -cnf=cnf -command=<command-name>` or if you want to make full binary
+file you need to use command: `godemon -cnf=deploy`. This will create
+   binary file with env variables. Deploy is using command - `env GOOS=project.platformOS
+   GOARCH=projet.platformArch go build -o project.name`
