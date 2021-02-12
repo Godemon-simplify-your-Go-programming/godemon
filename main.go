@@ -8,12 +8,10 @@ import (
 )
 
 func main() {
+	version := "2.0.0"
 	doneChan := make(chan bool)
-	cnf := os.Args[1]
-	var filepath string
-	var modOrFile string
-	filepath, modOrFile = controllers.ProgramStarting(cnf, filepath, modOrFile)
-	fmt.Println(filepath)
+	filepath, modOrFile, cnf, command, help := controllers.LoadCMD("", "")
+	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version)
 	for true {
 		go func(doneChan chan bool) {
 			defer func() {

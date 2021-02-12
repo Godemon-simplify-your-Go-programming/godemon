@@ -33,12 +33,10 @@ func TimeLog() {
 	cmd.Run()
 }
 
-func ProgramStarting(cnf string, filepath string, modOrFile string) (string, string) {
-	if cnf == "cmd" {
-		filepath = os.Args[2]
-		modOrFile = os.Args[3]
-	} else if cnf == "cnf" {
-		command := os.Args[2]
+func ProgramStarting(cnf *string, filepath string, modOrFile string, command string, help *bool, version string) (string, string) {
+	if *cnf == "cmd" {
+
+	} else if *cnf == "cnf" {
 		jsonFile, err := os.Open("godemon-cnf.json")
 		ErrorHandle(err)
 		defer jsonFile.Close()
@@ -54,6 +52,9 @@ func ProgramStarting(cnf string, filepath string, modOrFile string) (string, str
 				modOrFile = commands.Commands[i].Option
 			}
 		}
+	} else if *help == true {
+		fmt.Printf("Godemon %v: \n 1. -cnf <- in this flag put info about what do you want to do - if use cmd option use -cnf=cmd, if config file use -cnf=cnf \n 2. -path <- path to file/directory \n 3. -modOrFile <- are you using modules or one file \n 4. -command <- binded command in config file \n", version)
+		os.Exit(1)
 	}
 	return filepath, modOrFile
 }
