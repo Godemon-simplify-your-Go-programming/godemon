@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"godemon/controllers"
 	"os"
-	"os/exec"
 )
 
 func main() {
@@ -25,10 +24,7 @@ func main() {
 			if modOrFile == "mod" {
 				os.Chdir(filepath)
 				controllers.TimeLog()
-				cmd := exec.Command("go", "build", "-o", "app-godemon-app-godemon-tmp-generated")
-				cmd.Stdout = os.Stdout
-				cmd.Stderr = os.Stderr
-				cmd.Run()
+				controllers.BuildMod()
 				go controllers.ExecMOD()
 			} else if modOrFile == "file" {
 				controllers.TimeLog()

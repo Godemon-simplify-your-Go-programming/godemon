@@ -70,13 +70,24 @@ func WatchFiles(fileordirPath string) error {
 			return err
 		}
 		if stat.Size() != initialStat.Size() || stat.ModTime() != initialStat.ModTime() {
-			cmd := exec.Command("killall", "-9", "app-godemon-app-godemon-tmp-generated")
-			cmd.Stdout = os.Stdout
-			cmd.Stderr = os.Stderr
-			cmd.Run()
+			killProcess()
 			break
 		}
 		time.Sleep(1 * time.Second)
 	}
 	return nil
+}
+
+func BuildMod() {
+	cmd := exec.Command("go", "build", "-o", "app-godemon-app-godemon-tmp-generated")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Run()
+}
+
+func killProcess() {
+	cmd := exec.Command("killall", "-9", "app-godemon-app-godemon-tmp-generated")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Run()
 }
