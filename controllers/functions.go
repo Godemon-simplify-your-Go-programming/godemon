@@ -34,7 +34,7 @@ func ProgramStarting(cnf *string, filepath string, modOrFile string, command str
 	if *cnf == "cmd" {
 
 	} else if *cnf == "cnf" {
-		cnfFunc(command, "", "")
+		filepath, modOrFile = cnfFunc(command, "", "")
 	} else if *cnf == "deploy" {
 		deploy()
 	} else if init == true {

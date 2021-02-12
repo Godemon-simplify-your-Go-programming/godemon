@@ -23,7 +23,7 @@ func main() {
 			}
 			fmt.Println("File has been changed")
 			if modOrFile == "mod" {
-				os.Chdir(filepath)
+				os.Chdir("/home/nwagner/Desktop/godemon/godemon_test/")
 				controllers.TimeLog()
 				cmd := exec.Command("go", "build", "-o", "app-godemon-app-godemon-tmp-generated")
 				cmd.Stdout = os.Stdout

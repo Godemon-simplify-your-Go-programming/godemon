@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"time"
 )
 
 func deploy() {
@@ -55,7 +56,7 @@ func initialize(name string, arch string, oso string) {
 	os.Exit(1)
 }
 
-func cnfFunc(command string, filepath string, modOrFile string) {
+func cnfFunc(command string, filepath string, modOrFile string) (string, string) {
 	jsonFile, err := os.Open("godemon-cnf.json")
 	ErrorHandle(err)
 	defer jsonFile.Close()
@@ -71,6 +72,9 @@ func cnfFunc(command string, filepath string, modOrFile string) {
 			modOrFile = commands.Commands[i].Option
 		}
 	}
+	fmt.Println(filepath, modOrFile)
+	time.Sleep(10 * time.Second)
+	return filepath, modOrFile
 }
 
 func killProcess() {
