@@ -33,7 +33,7 @@ func TimeLog() {
 	cmd.Run()
 }
 
-func ProgramStarting(cnf *string, filepath string, modOrFile string, command string, help *bool, version string) (string, string) {
+func ProgramStarting(cnf *string, filepath string, modOrFile string, command string, help *bool, version string, init bool, name string, oso string, arch string) (string, string) {
 	if *cnf == "cmd" {
 
 	} else if *cnf == "cnf" {
@@ -64,7 +64,32 @@ func ProgramStarting(cnf *string, filepath string, modOrFile string, command str
 		arch := "GOARCH=" + pr.Arch
 		name := pr.Name
 		os.Chdir(pr.Path)
+		fmt.Println(pr)
 		cmd := exec.Command("env", goos, arch, "go", "build", "-o", name)
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+		cmd.Run()
+		os.Exit(1)
+	} else if init == true {
+		os.Mkdir(name, 0777)
+		os.Chdir(name)
+		var project models.Project
+		path, _ := os.Getwd()
+		project.Path = path
+		project.Name = name
+		project.Arch = arch
+		project.OS = oso
+		var commands models.Commands
+		var command models.Command
+		command.Name = "run"
+		command.Path = path
+		command.Option = "mod"
+		commands.Commands = append(commands.Commands, command)
+		file, _ := json.MarshalIndent(project, "", "	")
+		_ = ioutil.WriteFile("project.json", file, 0644)
+		file, _ = json.MarshalIndent(commands, "", "	")
+		_ = ioutil.WriteFile("godemon-cnf.json", file, 0644)
+		cmd := exec.Command("go", "mod", "init", name)
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		cmd.Run()
