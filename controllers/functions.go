@@ -24,25 +24,34 @@ func ExecFile(filepath string) {
 	cmd.Run()
 }
 
-func TimeLog() {
-	log := time.Now().Format("2006-01-02, 15:04 \n\n")
-	log = `Building project: ` + log + `Program result: `
-	cmd := exec.Command("printf", "\\e[1;34m%-6s\\e[m\n", log)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	cmd.Run()
-}
-
-func ProgramStarting(cnf *string, filepath string, modOrFile string, command string, help *bool, version string) (string, string) {
+func ProgramStarting(cnf *string, filepath string, modOrFile string, command string, help *bool, version string, init *bool, name string) (string, string) {
 	if *cnf == "cmd" {
 
 	} else if *cnf == "cnf" {
 		filepath, modOrFile = loadDataFromCnf(cnf, command, "", "")
 	} else if *cnf == "deploy" {
 		_, _ = loadDataFromCnf(cnf, command, "", "")
-	} else if *help == true {
-		fmt.Printf("Godemon %v: \n 1. -cnf <- in this flag put info about what do you want to do - if use cmd option use -cnf=cmd, if config file use -cnf=cnf \n 2. -path <- path to file/directory \n 3. -modOrFile <- are you using modules or one file \n 4. -command <- binded command in config file \n", version)
+	} else if *init == true {
+		os.Mkdir(name, 0777)
+		os.Chmod(name, 0777)
+		path, _ := os.Getwd()
+		dir := path + "/" + name
+		fmt.Println(dir)
+		os.Chdir(dir)
+		path, _ = os.Getwd()
+		var p models.Project
+		p.Path = path
+		p.Name = name
+		var c models.Commands
+		projectInfo := models.ProjectInfo{p, c}
+		file, _ := json.MarshalIndent(projectInfo, "", "")
+		f := dir + "/godemon-cnf.json"
+		fmt.Println(f)
+		_ = ioutil.WriteFile(f, file, 0777)
+		models.InitLog()
 		os.Exit(1)
+	} else if *help == true {
+		models.Help(version)
 	}
 	return filepath, modOrFile
 }
@@ -94,12 +103,7 @@ func cnfCnfLoad(projectInfo models.ProjectInfo, command string, filepath string,
 }
 
 func cnfDepLoad(projectInfo models.ProjectInfo, command string, filepath string, modOrFile string) {
-	log := time.Now().Format("2006-01-02, 15:04 \n\n")
-	log = `Building project: ` + log + `: `
-	cmd := exec.Command("printf", "\\e[1;34m%-6s\\e[m\n", log)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	cmd.Run()
+	models.DeployLog()
 	path := projectInfo.Project.Path
 	osP := projectInfo.Project.OS
 	arch := projectInfo.Project.Arch
@@ -107,7 +111,7 @@ func cnfDepLoad(projectInfo models.ProjectInfo, command string, filepath string,
 	archos := "GOARCH=" + arch
 	name := projectInfo.Project.Name
 	os.Chdir(path)
-	cmd = exec.Command("env", goos, archos, "go", "build", "-o", name)
+	cmd := exec.Command("env", goos, archos, "go", "build", "-o", name)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Run()

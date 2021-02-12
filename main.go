@@ -3,14 +3,15 @@ package main
 import (
 	"fmt"
 	"godemon/controllers"
+	"godemon/models"
 	"os"
 )
 
 func main() {
-	version := "2.0.5"
+	version := "2.0.6"
 	doneChan := make(chan bool)
-	filepath, modOrFile, cnf, command, help := controllers.LoadCMD("", "")
-	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version)
+	filepath, modOrFile, cnf, command, help, init, name := controllers.LoadCMD("", "")
+	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version, init, name)
 	for true {
 		go func(doneChan chan bool) {
 			defer func() {
@@ -23,11 +24,11 @@ func main() {
 			fmt.Println("File has been changed")
 			if modOrFile == "mod" {
 				os.Chdir(filepath)
-				controllers.TimeLog()
+				models.TimeLog()
 				controllers.BuildMod()
 				go controllers.ExecMOD()
 			} else if modOrFile == "file" {
-				controllers.TimeLog()
+				models.TimeLog()
 				go controllers.ExecFile(filepath)
 			}
 		}(doneChan)
