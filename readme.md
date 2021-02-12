@@ -12,10 +12,12 @@ First of all you need to build your version:
 
 ### Using default `./godemon`
 Now you can move file `godemon` to folder with your go project and 
-start it using command: `./godemon cnf <command>` or `./godemon cmd <fileOrDir> <fileOrModule>`.
+start it using command: `./godemon -cnf=cnf -command=<command>` or `./godemon -cnf=cmd -path=<fileOrDir> -modOrFile=<fileOrModule>`.
 In first argument you're giving godemon the path to project, and in second
 argument you're choosing is it simple go file or go module - if module pass
 argument - `mod` , if file pass argument - `file`
+
+If you need help with clie use command `./godemon -help`
 
 ### Installing `godemon` with `installer.sh`
 1. `wget https://github.com/nProgrammer/godemon/releases/download/1.1.0/installer.sh`
@@ -47,4 +49,4 @@ argument - `mod` , if file pass argument - `file`
     ]
 }
 ```
-3. Now use command: `godemon cnf <command-name>`
+3. Now use command: `godemon -cnf=cnf -command=<command-name>`
