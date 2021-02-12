@@ -20,7 +20,7 @@ argument - `mod` , if file pass argument - `file`
 If you need help with clie use command `./godemon -help`
 
 ### Installing `godemon` with `installer.sh`
-1. `wget https://github.com/nProgrammer/godemon/releases/download/1.1.0/installer.sh`
+1. `wget https://github.com/nProgrammer/godemon/releases/download/x.x.x/installer.sh`
 2. `sudo chmod 777 ./installer.sh`
 3. `./installer.sh`
 
@@ -38,7 +38,7 @@ If you need help with clie use command `./godemon -help`
 1. Create in project file `godemon-cnf.json`
 2. Create configuration of commands - sample code: 
 
-```
+```json
 {
     "commands": [
         {
@@ -49,4 +49,24 @@ If you need help with clie use command `./godemon -help`
     ]
 }
 ```
-3. Now use command: `godemon -cnf=cnf -command=<command-name>`
+3. Now create json file `projects.json`
+4. Create configuration of project - sample code:
+```json
+{
+	"name": "godemon_test",
+	"arch": "amd64",
+	"os": "windows",
+	"path": "/home/nwagner/Desktop/godemon_test"
+}
+```
+5. Now you can use 2 types of commands:
+    
+    a) `godemon -cnf=cnf <command-name>`
+    
+    b) `godemon -cnf=deploy`
+   
+Types of `-cnf`:
+
+1. cnf - using `godemon-conf.json` to hot live reload
+2. deploy - using `projects.json` to compile program for many platforms
+3. cmd - to use this you need to pass parameters like - `-path -modOrFile ` allows you to easy hot live reloading
