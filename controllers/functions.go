@@ -52,6 +52,23 @@ func ProgramStarting(cnf *string, filepath string, modOrFile string, command str
 				modOrFile = commands.Commands[i].Option
 			}
 		}
+	} else if *cnf == "deploy" {
+		jsonFile, err := os.Open("project.json")
+		ErrorHandle(err)
+		defer jsonFile.Close()
+		byteValue, err := ioutil.ReadAll(jsonFile)
+		ErrorHandle(err)
+		var pr models.Project
+		json.Unmarshal(byteValue, &pr)
+		goos := "GOOS=" + pr.OS
+		arch := "GOARCH=" + pr.Arch
+		name := pr.Name
+		os.Chdir(pr.Path)
+		cmd := exec.Command("env", goos, arch, "go", "build", "-o", name)
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+		cmd.Run()
+		os.Exit(1)
 	} else if *help == true {
 		fmt.Printf("Godemon %v: \n 1. -cnf <- in this flag put info about what do you want to do - if use cmd option use -cnf=cmd, if config file use -cnf=cnf \n 2. -path <- path to file/directory \n 3. -modOrFile <- are you using modules or one file \n 4. -command <- binded command in config file \n", version)
 		os.Exit(1)
