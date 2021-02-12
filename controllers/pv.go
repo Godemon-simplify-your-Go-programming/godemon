@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"godemon/models"
 	"io/ioutil"
 	"os"
@@ -22,7 +21,6 @@ func deploy() {
 	arch := "GOARCH=" + pr.Arch
 	name := pr.Name
 	os.Chdir(pr.Path)
-	fmt.Println(pr)
 	cmd := exec.Command("env", goos, arch, "go", "build", "-o", name)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
@@ -66,14 +64,10 @@ func cnfFunc(command string, filepath string, modOrFile string) (string, string)
 	json.Unmarshal(byteValue, &commands)
 	for i := 0; i < len(commands.Commands); i++ {
 		if command == commands.Commands[i].Name {
-			fmt.Println(commands.Commands[i].Path)
-			fmt.Println(commands.Commands[i].Option)
 			filepath = commands.Commands[i].Path
 			modOrFile = commands.Commands[i].Option
 		}
 	}
-	fmt.Println(filepath, modOrFile)
-	time.Sleep(10 * time.Second)
 	return filepath, modOrFile
 }
 
