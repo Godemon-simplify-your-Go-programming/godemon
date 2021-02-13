@@ -70,7 +70,12 @@ If you need help with clie use command `./godemon -help`
     a) `godemon -cnf=cnf <command-name>`
     
     b) `godemon -cnf=deploy`
-   
+
+### Automation of configs json files:
+If you want to skip process of creating config file you can use command:
+
+`godemon -init -name=<project-name> -arch=<sys-arch> -os=<os>`
+
 #### Types of `-cnf`:
 
 1. cnf - using `godemon-conf.json` to hot live reload
