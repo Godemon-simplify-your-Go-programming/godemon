@@ -38,16 +38,13 @@ func initialize(name string, arch string, oso string) {
 	project.Arch = arch
 	project.OS = oso
 	project.Vars = append(project.Vars, models.Var{"", ""})
-	var commands models.Commands
 	var command models.Command
 	command.Name = "run"
 	command.Path = path
 	command.Option = "mod"
-	commands.Commands = append(commands.Commands, command)
+	project.Commands = append(project.Commands, command)
 	file, _ := json.MarshalIndent(project, "", "	")
 	_ = ioutil.WriteFile("project.json", file, 0644)
-	file, _ = json.MarshalIndent(commands, "", "	")
-	_ = ioutil.WriteFile("godemon-cnf.json", file, 0644)
 	cmd := exec.Command("go", "mod", "init", name)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
@@ -56,17 +53,17 @@ func initialize(name string, arch string, oso string) {
 }
 
 func cnfFunc(command string, filepath string, modOrFile string) (string, string) {
-	jsonFile, err := os.Open("godemon-cnf.json")
+	jsonFile, err := os.Open("project.json")
 	ErrorHandle(err)
 	defer jsonFile.Close()
 	byteValue, err := ioutil.ReadAll(jsonFile)
 	ErrorHandle(err)
-	var commands models.Commands
-	json.Unmarshal(byteValue, &commands)
-	for i := 0; i < len(commands.Commands); i++ {
-		if command == commands.Commands[i].Name {
-			filepath = commands.Commands[i].Path
-			modOrFile = commands.Commands[i].Option
+	var project models.Project
+	json.Unmarshal(byteValue, &project)
+	for i := 0; i < len(project.Commands); i++ {
+		if command == project.Commands[i].Name {
+			filepath = project.Commands[i].Path
+			modOrFile = project.Commands[i].Option
 		}
 	}
 	return filepath, modOrFile
