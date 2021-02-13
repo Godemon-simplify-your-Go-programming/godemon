@@ -35,22 +35,8 @@ If you need help with clie use command `./godemon -help`
 2. Add path to `godemon.exe` to system PATH
 
 ### How to work with configuration json file
-1. Create in project file `godemon-cnf.json`
-2. Create configuration of commands - sample code: 
-
-```json
-{
-    "commands": [
-        {
-            "name": "run",
-            "path": "/home/nwagner/Desktop/godemon/api/",
-            "file": "mod"
-        }
-    ]
-}
-```
-3. Now create json file `projects.json`
-4. Create configuration of project - sample code:
+1. Create json file `projects.json`
+2. Create configuration of project - sample code:
 ```json
 {
    "name": "test2",
@@ -62,10 +48,17 @@ If you need help with clie use command `./godemon -help`
          "key": "PORT",
          "value": "8800"
       }
+   ],
+   "commands": [
+      {
+         "name": "run",
+         "path": "/home/nwagner/Desktop/godemon/api/",
+         "file": "mod"
+      }
    ]
 }
 ```
-5. Now you can use 2 types of commands:
+3. Now you can use 2 types of commands:
     
     a) `godemon -cnf=cnf <command-name>`
     

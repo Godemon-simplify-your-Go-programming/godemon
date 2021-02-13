@@ -12,7 +12,7 @@ func main() {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Run()
-	version := "2.1.2"
+	version := "2.2.1"
 	doneChan := make(chan bool)
 	filepath, modOrFile, cnf, command, help, init, name, oso, arch := controllers.LoadCMD("", "")
 	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version, init, name, oso, arch)
