@@ -37,6 +37,7 @@ func initialize(name string, arch string, oso string) {
 	project.Name = name
 	project.Arch = arch
 	project.OS = oso
+	project.Vars = append(project.Vars, models.Var{"", ""})
 	var commands models.Commands
 	var command models.Command
 	command.Name = "run"

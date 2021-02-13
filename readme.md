@@ -53,10 +53,16 @@ If you need help with clie use command `./godemon -help`
 4. Create configuration of project - sample code:
 ```json
 {
-	"name": "godemon_test",
-	"arch": "amd64",
-	"os": "windows",
-	"path": "/home/nwagner/Desktop/godemon_test"
+   "name": "test2",
+   "arch": "amd64",
+   "os": "linux",
+   "path": "/home/nwagner/Desktop/godemon/test2",
+   "dev-vars": [
+      {
+         "key": "PORT",
+         "value": "8800"
+      }
+   ]
 }
 ```
 5. Now you can use 2 types of commands:
@@ -65,8 +71,16 @@ If you need help with clie use command `./godemon -help`
     
     b) `godemon -cnf=deploy`
    
-Types of `-cnf`:
+#### Types of `-cnf`:
 
 1. cnf - using `godemon-conf.json` to hot live reload
 2. deploy - using `projects.json` to compile program for many platforms
 3. cmd - to use this you need to pass parameters like - `-path -modOrFile ` allows you to easy hot live reloading
+
+#### What is `dev-vars`?
+`dev-vars` are OS variables that are using when godemon is running this app.
+
+`"key"` - name of var
+
+`"value"` - value of var
+##### Remember! it doesn't works when you deploy your app

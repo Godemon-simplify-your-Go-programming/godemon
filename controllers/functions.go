@@ -1,12 +1,25 @@
 package controllers
 
 import (
+	"encoding/json"
+	"fmt"
 	"godemon/models"
+	"io/ioutil"
 	"os"
 	"time"
 )
 
 func ExecMOD() {
+	jsonFile, err := os.Open("project.json")
+	ErrorHandle(err)
+	defer jsonFile.Close()
+	byteValue, err := ioutil.ReadAll(jsonFile)
+	ErrorHandle(err)
+	var pr models.Project
+	json.Unmarshal(byteValue, &pr)
+	for i := 0; i < len(pr.Vars); i++ {
+		os.Setenv(pr.Vars[i].Key, pr.Vars[i].Value)
+	}
 	execMOD()
 }
 
@@ -26,6 +39,16 @@ func ProgramStarting(cnf *string, filepath string, modOrFile string, command str
 	} else if *cnf == "deploy" {
 		deploy()
 	} else if init == true {
+		if arch == "" && oso == "" {
+			fmt.Println("\nPlease specify OS architecture and OS platform")
+			os.Exit(1)
+		} else if arch == "" {
+			fmt.Println("\nPlease specify OS architecture")
+			os.Exit(1)
+		} else if oso == "" {
+			fmt.Println("\nPlease specify OS platform")
+			os.Exit(1)
+		}
 		initialize(name, arch, oso)
 	} else if *help == true ||
 		(*cnf == "" && filepath == "" && modOrFile == "" &&
