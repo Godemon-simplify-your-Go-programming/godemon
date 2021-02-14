@@ -6,17 +6,10 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
-	"time"
 )
 
 func deploy() {
-	jsonFile, err := os.Open("project.json")
-	ErrorHandle(err)
-	defer jsonFile.Close()
-	byteValue, err := ioutil.ReadAll(jsonFile)
-	ErrorHandle(err)
-	var pr models.Project
-	json.Unmarshal(byteValue, &pr)
+	pr := loadProjectInfo()
 	goos := "GOOS=" + pr.OS
 	arch := "GOARCH=" + pr.Arch
 	name := pr.Name
@@ -53,13 +46,7 @@ func initialize(name string, arch string, oso string) {
 }
 
 func cnfFunc(command string, filepath string, modOrFile string) (string, string) {
-	jsonFile, err := os.Open("project.json")
-	ErrorHandle(err)
-	defer jsonFile.Close()
-	byteValue, err := ioutil.ReadAll(jsonFile)
-	ErrorHandle(err)
-	var project models.Project
-	json.Unmarshal(byteValue, &project)
+	project := loadProjectInfo()
 	for i := 0; i < len(project.Commands); i++ {
 		if command == project.Commands[i].Name {
 			filepath = project.Commands[i].Path
@@ -67,34 +54,4 @@ func cnfFunc(command string, filepath string, modOrFile string) (string, string)
 		}
 	}
 	return filepath, modOrFile
-}
-
-func killProcess() {
-	cmd := exec.Command("killall", "-9", "app-godemon-app-godemon-tmp-generated")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	cmd.Run()
-}
-
-func execMOD() {
-	cmd := exec.Command("./app-godemon-app-godemon-tmp-generated")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	cmd.Run()
-}
-
-func execFile(filepath string) {
-	cmd := exec.Command("go", "run", filepath)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	cmd.Run()
-}
-
-func timeLog() {
-	log := time.Now().Format("2006-01-02, 15:04 \n\n")
-	log = `Building project: ` + log + `Program result: `
-	cmd := exec.Command("printf", "\\e[1;34m%-6s\\e[m\n", log)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	cmd.Run()
 }
