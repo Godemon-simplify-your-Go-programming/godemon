@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"godemon/models"
 	"io/ioutil"
 	"os"
@@ -52,6 +53,10 @@ func cnfFunc(command string, filepath string, modOrFile string) (string, string)
 			filepath = project.Commands[i].Path
 			modOrFile = project.Commands[i].Option
 		}
+	}
+	if filepath == "" || modOrFile == "" {
+		fmt.Println("Filepath or modOrFile is empty")
+		os.Exit(1)
 	}
 	return filepath, modOrFile
 }

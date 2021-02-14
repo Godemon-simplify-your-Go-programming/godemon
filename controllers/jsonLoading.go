@@ -2,6 +2,8 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
+	"go/build"
 	"godemon/models"
 	"io/ioutil"
 	"os"
@@ -15,5 +17,17 @@ func loadProjectInfo() models.Project {
 	ErrorHandle(err)
 	var project models.Project
 	json.Unmarshal(byteValue, &project)
+	if project.Name == "" || project.Path == "" {
+		fmt.Println("Project name or path is empty")
+		os.Exit(1)
+	}
+	if project.OS == "" && project.Arch == "" {
+		project.OS = build.Default.GOOS
+		project.Arch = build.Default.GOARCH
+	} else if project.OS == "" {
+		project.OS = build.Default.GOOS
+	} else if project.Arch == "" {
+		project.Arch = build.Default.GOARCH
+	}
 	return project
 }
