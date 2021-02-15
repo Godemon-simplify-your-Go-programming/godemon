@@ -11,7 +11,8 @@ func main() {
 	cmd := exec.Command("printf", "\\e[1;34m%-6s\\e[m\n", "Starting godemon... \n")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	cmd.Run()
+	err := cmd.Run()
+	controllers.ErrorHandle(err)
 	version := "2.2.2"
 	doneChan := make(chan bool)
 	filepath, modOrFile, cnf, command, help, init, name, oso, arch := controllers.LoadCMD("", "")
@@ -22,17 +23,17 @@ func main() {
 				doneChan <- true
 			}()
 			err := controllers.WatchFiles(filepath)
-			if err != nil {
-				fmt.Println(err)
-			}
+			controllers.ErrorHandle(err)
 			fmt.Println("File has been changed")
 			if modOrFile == "mod" {
-				os.Chdir(filepath)
+				err = os.Chdir(filepath)
+				controllers.ErrorHandle(err)
 				controllers.TimeLog()
 				cmd := exec.Command("go", "build", "-o", "app-godemon-app-godemon-tmp-generated")
 				cmd.Stdout = os.Stdout
 				cmd.Stderr = os.Stderr
-				cmd.Run()
+				err = cmd.Run()
+				controllers.ErrorHandle(err)
 				go controllers.ExecMOD()
 			} else if modOrFile == "file" {
 				controllers.TimeLog()

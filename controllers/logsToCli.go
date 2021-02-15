@@ -12,5 +12,6 @@ func timeLog() {
 	cmd := exec.Command("printf", "\\e[1;34m%-6s\\e[m\n", log)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	cmd.Run()
+	err := cmd.Run()
+	ErrorHandle(err)
 }

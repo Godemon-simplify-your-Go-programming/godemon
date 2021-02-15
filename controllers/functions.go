@@ -16,9 +16,11 @@ func ExecMOD() {
 	byteValue, err := ioutil.ReadAll(jsonFile)
 	ErrorHandle(err)
 	var pr models.Project
-	json.Unmarshal(byteValue, &pr)
+	err = json.Unmarshal(byteValue, &pr)
+	ErrorHandle(err)
 	for i := 0; i < len(pr.Vars); i++ {
-		os.Setenv(pr.Vars[i].Key, pr.Vars[i].Value)
+		err = os.Setenv(pr.Vars[i].Key, pr.Vars[i].Value)
+		ErrorHandle(err)
 	}
 	execMOD()
 }
@@ -37,7 +39,7 @@ func ProgramStarting(cnf *string, filepath string, modOrFile string, command str
 	} else if *cnf == "cnf" {
 		filepath, modOrFile = cnfFunc(command, "", "")
 	} else if *cnf == "deploy" {
-		deploy()
+		deploy(oso, arch)
 	} else if init == true {
 		if arch == "" && oso == "" {
 			fmt.Println("\nPlease specify OS architecture and OS platform")

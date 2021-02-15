@@ -16,7 +16,8 @@ func loadProjectInfo() models.Project {
 	byteValue, err := ioutil.ReadAll(jsonFile)
 	ErrorHandle(err)
 	var project models.Project
-	json.Unmarshal(byteValue, &project)
+	err = json.Unmarshal(byteValue, &project)
+	ErrorHandle(err)
 	if project.Name == "" || project.Path == "" {
 		fmt.Println("Project name or path is empty")
 		os.Exit(1)

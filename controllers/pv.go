@@ -14,7 +14,8 @@ func deploy(oso string, archL string) {
 	var arch string
 	pr := loadProjectInfo()
 	name := pr.Name
-	os.Chdir(pr.Path)
+	err := os.Chdir(pr.Path)
+	ErrorHandle(err)
 	if oso != "" && archL == "" {
 		goos = "GOOS=" + oso
 		arch = "GOARCH=" + archL
@@ -25,13 +26,16 @@ func deploy(oso string, archL string) {
 	cmd := exec.Command("env", goos, arch, "go", "build", "-o", name)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	cmd.Run()
+	err = cmd.Run()
+	ErrorHandle(err)
 	os.Exit(1)
 }
 
 func initialize(name string, arch string, oso string) {
-	os.Mkdir(name, 0777)
-	os.Chdir(name)
+	err := os.Mkdir(name, 0777)
+	ErrorHandle(err)
+	err = os.Chdir(name)
+	ErrorHandle(err)
 	var project models.Project
 	path, _ := os.Getwd()
 	project.Path = path
@@ -44,12 +48,15 @@ func initialize(name string, arch string, oso string) {
 	command.Path = path
 	command.Option = "mod"
 	project.Commands = append(project.Commands, command)
-	file, _ := json.MarshalIndent(project, "", "	")
-	_ = ioutil.WriteFile("project.json", file, 0644)
+	file, err := json.MarshalIndent(project, "", "	")
+	ErrorHandle(err)
+	err = ioutil.WriteFile("project.json", file, 0644)
+	ErrorHandle(err)
 	cmd := exec.Command("go", "mod", "init", name)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	cmd.Run()
+	err = cmd.Run()
+	ErrorHandle(err)
 	os.Exit(1)
 }
 
