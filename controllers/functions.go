@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func ExecMOD() {
+func ExecMOD(hOS string) {
 	jsonFile, err := os.Open("project.json")
 	ErrorHandle(err)
 	defer jsonFile.Close()
@@ -22,7 +22,7 @@ func ExecMOD() {
 		err = os.Setenv(pr.Vars[i].Key, pr.Vars[i].Value)
 		ErrorHandle(err)
 	}
-	execMOD()
+	execMOD(hOS)
 }
 
 func ExecFile(filepath string) {
@@ -33,13 +33,13 @@ func TimeLog() {
 	timeLog()
 }
 
-func ProgramStarting(cnf *string, filepath string, modOrFile string, command string, help *bool, version string, init bool, name string, oso string, arch string) (string, string) {
+func ProgramStarting(cnf *string, filepath string, modOrFile string, command string, help *bool, version string, init bool, name string, oso string, arch string, hOS string) (string, string) {
 	if *cnf == "cmd" {
 
 	} else if *cnf == "cnf" {
 		filepath, modOrFile = cnfFunc(command, "", "")
 	} else if *cnf == "deploy" {
-		deploy(oso, arch)
+		deploy(oso, arch, hOS)
 	} else if init == true {
 		if arch == "" && oso == "" {
 			fmt.Println("\nPlease specify OS architecture and OS platform")
@@ -61,7 +61,7 @@ func ProgramStarting(cnf *string, filepath string, modOrFile string, command str
 	return filepath, modOrFile
 }
 
-func WatchFiles(fileordirPath string) error {
+func WatchFiles(fileordirPath string, hOS string) error {
 	initialStat, err := os.Stat(fileordirPath)
 	if err != nil {
 		return err
@@ -72,7 +72,7 @@ func WatchFiles(fileordirPath string) error {
 			return err
 		}
 		if stat.Size() != initialStat.Size() || stat.ModTime() != initialStat.ModTime() {
-			killProcess()
+			killProcess(hOS)
 			break
 		}
 		time.Sleep(1 * time.Second)

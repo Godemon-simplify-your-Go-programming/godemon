@@ -9,7 +9,7 @@ import (
 	"os/exec"
 )
 
-func deploy(oso string, archL string) {
+func deploy(oso string, archL string, hOS string) {
 	var goos string
 	var arch string
 	pr := loadProjectInfo()
@@ -22,6 +22,9 @@ func deploy(oso string, archL string) {
 	} else {
 		goos = "GOOS=" + pr.OS
 		arch = "GOARCH=" + pr.Arch
+	}
+	if hOS == "windows" {
+		name = name + ".exe"
 	}
 	cmd := exec.Command("env", goos, arch, "go", "build", "-o", name)
 	cmd.Stdout = os.Stdout
