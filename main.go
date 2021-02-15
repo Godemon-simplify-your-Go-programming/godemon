@@ -2,17 +2,15 @@ package main
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 	"godemon/controllers"
 	"os"
 	"os/exec"
 )
 
 func main() {
-	cmd := exec.Command("printf", "\\e[1;34m%-6s\\e[m\n", "Starting godemon... \n")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	err := cmd.Run()
-	controllers.ErrorHandle(err)
+	//hostInfo := [2]string{build.Default.GOOS, build.Default.GOARCH}
+	color.Blue("Godemon starting...")
 	version := "2.2.2"
 	doneChan := make(chan bool)
 	filepath, modOrFile, cnf, command, help, init, name, oso, arch := controllers.LoadCMD("", "")
