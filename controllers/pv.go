@@ -9,12 +9,19 @@ import (
 	"os/exec"
 )
 
-func deploy() {
+func deploy(oso string, archL string) {
+	var goos string
+	var arch string
 	pr := loadProjectInfo()
-	goos := "GOOS=" + pr.OS
-	arch := "GOARCH=" + pr.Arch
 	name := pr.Name
 	os.Chdir(pr.Path)
+	if oso != "" && archL == "" {
+		goos = "GOOS=" + oso
+		arch = "GOARCH=" + archL
+	} else {
+		goos = "GOOS=" + pr.OS
+		arch = "GOARCH=" + pr.Arch
+	}
 	cmd := exec.Command("env", goos, arch, "go", "build", "-o", name)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
