@@ -5,6 +5,7 @@ import (
 	"github.com/fatih/color"
 	"go/build"
 	"godemon/controllers"
+	"godemon/models"
 	"os"
 	"os/exec"
 )
@@ -12,7 +13,7 @@ import (
 func main() {
 	hostInfo := [2]string{build.Default.GOOS, build.Default.GOARCH}
 	color.Blue("Godemon starting...")
-	version := "2.5.2"
+	version := "2.5.3"
 	doneChan := make(chan bool)
 	filepath, modOrFile, cnf, command, help, init, name, oso, arch := controllers.LoadCMD("", "")
 	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version, init, name, oso, arch, hostInfo[0])
@@ -29,11 +30,7 @@ func main() {
 				controllers.ErrorHandle(err)
 				controllers.TimeLog()
 				var cmd *exec.Cmd
-				if hostInfo[0] != "windows" {
-					cmd = exec.Command("go", "build", "-o", "app-godemon-app-godemon-tmp-generated")
-				} else {
-					cmd = exec.Command("go", "build", "-o", "app-godemon-app-godemon-tmp-generated.exe")
-				}
+				cmd = models.CMDhotReload(hostInfo)
 				cmd.Stdout = os.Stdout
 				cmd.Stderr = os.Stderr
 				err = cmd.Run()
