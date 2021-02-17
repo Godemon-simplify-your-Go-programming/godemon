@@ -28,6 +28,11 @@ If you need help with clie use command `./godemon -help`
 1. Download source code from releases or use `git clone https://github.com/nProgrammer/godemon`
 2. `cd ./godemon`
 3. `go build`
+   
+If Windows:
+4. Move `godemon.exe` to `System32`
+   
+On Linux:
 4. `sudo cp godemon /bin/godemon`
 
 ### Installing `godemon` from `godemon.exe`
