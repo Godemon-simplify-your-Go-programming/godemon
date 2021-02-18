@@ -1,37 +1,12 @@
 package controllers
 
 import (
-	"encoding/json"
 	"fmt"
 	"godemon/models"
-	"io/ioutil"
 	"os"
-	"time"
 )
 
-func ExecMOD(hOS string) {
-	jsonFile, err := os.Open("project.json")
-	ErrorHandle(err)
-	defer jsonFile.Close()
-	byteValue, err := ioutil.ReadAll(jsonFile)
-	ErrorHandle(err)
-	var pr models.Project
-	err = json.Unmarshal(byteValue, &pr)
-	ErrorHandle(err)
-	for i := 0; i < len(pr.Vars); i++ {
-		err = os.Setenv(pr.Vars[i].Key, pr.Vars[i].Value)
-		ErrorHandle(err)
-	}
-	execMOD(hOS)
-}
-
-func ExecFile(filepath string) {
-	execFile(filepath)
-}
-
-func TimeLog() {
-	timeLog()
-}
+//TODO("CREATE NEW MODULES - TimeLog, Executable, JsonLoad, Kill, LogsToCli, LoadFlags - everything with private functions")
 
 func ProgramStarting(cnf *string, filepath string, modOrFile string, command string, help *bool, version string, init bool, name string, oso string, arch string, hOS string) (string, string) {
 	if *cnf == "cmd" {
@@ -59,23 +34,4 @@ func ProgramStarting(cnf *string, filepath string, modOrFile string, command str
 		models.HelpCLI(version)
 	}
 	return filepath, modOrFile
-}
-
-func WatchFiles(fileordirPath string, hOS string) error {
-	initialStat, err := os.Stat(fileordirPath)
-	if err != nil {
-		return err
-	}
-	for {
-		stat, err := os.Stat(fileordirPath)
-		if err != nil {
-			return err
-		}
-		if stat.Size() != initialStat.Size() || stat.ModTime() != initialStat.ModTime() {
-			killProcess(hOS)
-			break
-		}
-		time.Sleep(1 * time.Second)
-	}
-	return nil
 }
