@@ -1,4 +1,4 @@
-# Godemon 2.5.5
+# Godemon
 
 ### What do you have to install before using `godemon`:
 1. Go compiler,
