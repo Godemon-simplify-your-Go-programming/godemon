@@ -1,4 +1,4 @@
-package controllers
+package cliTools
 
 import (
 	"flag"

@@ -4,7 +4,10 @@ import (
 	"fmt"
 	"github.com/fatih/color"
 	"go/build"
+	"godemon/cliTools"
 	"godemon/controllers"
+	"godemon/errors"
+	"godemon/execs"
 	"godemon/models"
 	"os"
 	"os/exec"
@@ -15,7 +18,7 @@ func main() {
 	color.Blue("Godemon starting...")
 	version := "2.5.5"
 	doneChan := make(chan bool)
-	filepath, modOrFile, cnf, command, help, init, name, oso, arch := controllers.LoadCMD("", "")
+	filepath, modOrFile, cnf, command, help, init, name, oso, arch := cliTools.LoadCMD("", "")
 	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version, init, name, oso, arch, hostInfo[0])
 	for true {
 		go func(doneChan chan bool) {
@@ -23,22 +26,22 @@ func main() {
 				doneChan <- true
 			}()
 			err := controllers.WatchFiles(filepath, hostInfo[0])
-			controllers.ErrorHandle(err)
+			errors.ErrorHandle(err)
 			fmt.Println("File has been changed")
 			if modOrFile == "mod" {
 				err = os.Chdir(filepath)
-				controllers.ErrorHandle(err)
-				controllers.TimeLog()
+				errors.ErrorHandle(err)
+				cliTools.TimeLog()
 				var cmd *exec.Cmd
 				cmd = models.CMDhotReload(hostInfo)
 				cmd.Stdout = os.Stdout
 				cmd.Stderr = os.Stderr
 				err = cmd.Run()
-				controllers.ErrorHandle(err)
-				go controllers.ExecMOD(hostInfo[0])
+				errors.ErrorHandle(err)
+				go execs.ExecMOD(hostInfo[0])
 			} else if modOrFile == "file" {
-				controllers.TimeLog()
-				go controllers.ExecFile(filepath)
+				cliTools.TimeLog()
+				go execs.ExecFile(filepath)
 			}
 		}(doneChan)
 		<-doneChan

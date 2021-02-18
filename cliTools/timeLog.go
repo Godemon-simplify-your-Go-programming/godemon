@@ -1,4 +1,4 @@
-package controllers
+package cliTools
 
 func TimeLog() {
 	timeLog()

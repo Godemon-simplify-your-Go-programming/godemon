@@ -1,23 +1,24 @@
-package controllers
+package prepareProject
 
 import (
 	"encoding/json"
 	"fmt"
 	"go/build"
+	"godemon/errors"
 	"godemon/models"
 	"io/ioutil"
 	"os"
 )
 
-func loadProjectInfo() models.Project {
+func LoadProjectInfo() models.Project {
 	jsonFile, err := os.Open("project.json")
-	ErrorHandle(err)
+	errors.ErrorHandle(err)
 	defer jsonFile.Close()
 	byteValue, err := ioutil.ReadAll(jsonFile)
-	ErrorHandle(err)
+	errors.ErrorHandle(err)
 	var project models.Project
 	err = json.Unmarshal(byteValue, &project)
-	ErrorHandle(err)
+	errors.ErrorHandle(err)
 	if project.Name == "" || project.Path == "" {
 		fmt.Println("Project name or path is empty")
 		os.Exit(1)

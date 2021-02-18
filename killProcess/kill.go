@@ -1,6 +1,7 @@
-package controllers
+package killProcess
 
 import (
+	"godemon/errors"
 	"os"
 	"os/exec"
 )
@@ -15,10 +16,10 @@ func killCMDgen(hOS string) *exec.Cmd {
 	return cmd
 }
 
-func killProcess(hOS string) {
+func KillProcess(hOS string) {
 	cmd := killCMDgen(hOS)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err := cmd.Run()
-	ErrorHandle(err)
+	errors.ErrorHandle(err)
 }

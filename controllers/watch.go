@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"godemon/killProcess"
 	"os"
 	"time"
 )
@@ -20,7 +21,7 @@ func watch(fileordirPath string, hOS string) error {
 			return err
 		}
 		if stat.Size() != initialStat.Size() || stat.ModTime() != initialStat.ModTime() {
-			killProcess(hOS)
+			killProcess.KillProcess(hOS)
 			break
 		}
 		time.Sleep(1 * time.Second)

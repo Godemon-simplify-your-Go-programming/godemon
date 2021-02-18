@@ -1,8 +1,8 @@
-package controllers
+package errors
 
 import "fmt"
 
-func ErrorHandle(err error) {
+func errorHandle(err error) {
 	if err != nil {
 		fmt.Println(err)
 	}

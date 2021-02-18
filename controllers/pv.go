@@ -3,7 +3,9 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
+	"godemon/errors"
 	"godemon/models"
+	"godemon/prepareProject"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -12,10 +14,10 @@ import (
 func deploy(oso string, archL string, hOS string) {
 	var goos string
 	var arch string
-	pr := loadProjectInfo()
+	pr := prepareProject.LoadProjectInfo()
 	name := pr.Name
 	err := os.Chdir(pr.Path)
-	ErrorHandle(err)
+	errors.ErrorHandle(err)
 	if oso != "" && archL == "" {
 		goos = "GOOS=" + oso
 		arch = "GOARCH=" + archL
@@ -30,15 +32,15 @@ func deploy(oso string, archL string, hOS string) {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err = cmd.Run()
-	ErrorHandle(err)
+	errors.ErrorHandle(err)
 	os.Exit(1)
 }
 
 func initialize(name string, arch string, oso string) {
 	err := os.Mkdir(name, 0777)
-	ErrorHandle(err)
+	errors.ErrorHandle(err)
 	err = os.Chdir(name)
-	ErrorHandle(err)
+	errors.ErrorHandle(err)
 	var project models.Project
 	path, _ := os.Getwd()
 	project.Path = path
@@ -52,19 +54,19 @@ func initialize(name string, arch string, oso string) {
 	command.Option = "mod"
 	project.Commands = append(project.Commands, command)
 	file, err := json.MarshalIndent(project, "", "	")
-	ErrorHandle(err)
+	errors.ErrorHandle(err)
 	err = ioutil.WriteFile("project.json", file, 0644)
-	ErrorHandle(err)
+	errors.ErrorHandle(err)
 	cmd := exec.Command("go", "mod", "init", name)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err = cmd.Run()
-	ErrorHandle(err)
+	errors.ErrorHandle(err)
 	os.Exit(1)
 }
 
 func cnfFunc(command string, filepath string, modOrFile string) (string, string) {
-	project := loadProjectInfo()
+	project := prepareProject.LoadProjectInfo()
 	for i := 0; i < len(project.Commands); i++ {
 		if command == project.Commands[i].Name {
 			filepath = project.Commands[i].Path

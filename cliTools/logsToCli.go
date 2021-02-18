@@ -1,4 +1,4 @@
-package controllers
+package cliTools
 
 import (
 	"github.com/fatih/color"
