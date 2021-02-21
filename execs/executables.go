@@ -19,7 +19,7 @@ func ExecMOD(hOS string) {
 	errors.ErrorHandle(err)
 	for i := 0; i < len(pr.Vars); i++ {
 		err = os.Setenv(pr.Vars[i].Key, pr.Vars[i].Value)
-		errors.ErrorHandle(err)
+		errors.TMPerrorHandle(err)
 	}
 	execMOD(hOS)
 }

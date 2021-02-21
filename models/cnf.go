@@ -17,3 +17,7 @@ type Project struct {
 	Vars     []Var     `json:"dev-vars"`
 	Commands []Command `json:"commands"`
 }
+
+type ErrorTMP struct {
+	Message string `json:"message"`
+}

@@ -21,5 +21,5 @@ func KillProcess(hOS string) {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err := cmd.Run()
-	errors.ErrorHandle(err)
+	errors.TMPerrorHandle(err)
 }
