@@ -6,8 +6,6 @@ import (
 	"os"
 )
 
-//TODO("CREATE NEW MODULES - TimeLog, Executable, JsonLoad, Kill, LogsToCli, LoadFlags - everything with private functions")
-
 func ProgramStarting(cnf *string, filepath string, modOrFile string, command string, help *bool, version string, init bool, name string, oso string, arch string, hOS string) (string, string) {
 	if *cnf == "cmd" {
 

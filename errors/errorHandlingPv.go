@@ -1,9 +1,11 @@
 package errors
 
-import "fmt"
+import (
+	"github.com/fatih/color"
+)
 
 func errorHandle(err error) {
 	if err != nil {
-		fmt.Println(err)
+		color.Cyan(err.Error())
 	}
 }
