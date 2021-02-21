@@ -1,5 +1,11 @@
 # Godemon
 
+##### Compatible with - Windows, Linux and MacOS
+
+---
+
+
+
 ### What do you have to install before using `godemon`:
 1. Go compiler,
 2. Git,
