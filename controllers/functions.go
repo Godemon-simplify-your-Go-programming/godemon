@@ -1,9 +1,8 @@
 package controllers
 
 import (
-	"fmt"
+	"go/build"
 	"godemon/models"
-	"os"
 )
 
 func ProgramStarting(cnf *string, filepath string, modOrFile string, command string, help *bool, version string, init bool, name string, oso string, arch string, hOS string) (string, string) {
@@ -15,14 +14,12 @@ func ProgramStarting(cnf *string, filepath string, modOrFile string, command str
 		deploy(oso, arch, hOS)
 	} else if init == true {
 		if arch == "" && oso == "" {
-			fmt.Println("\nPlease specify OS architecture and OS platform")
-			os.Exit(1)
+			arch = build.Default.GOARCH
+			oso = build.Default.GOOS
 		} else if arch == "" {
-			fmt.Println("\nPlease specify OS architecture")
-			os.Exit(1)
+			arch = build.Default.GOARCH
 		} else if oso == "" {
-			fmt.Println("\nPlease specify OS platform")
-			os.Exit(1)
+			oso = build.Default.GOOS
 		}
 		initialize(name, arch, oso)
 	} else if *help == true ||

@@ -1,4 +1,4 @@
-//TODO - refactore code to avoid using the Path parameter in project.json and while creating project
+// TODO - prepare the code to manage all errors that user can do
 
 package main
 
@@ -18,7 +18,7 @@ import (
 func main() {
 	hostInfo := [2]string{build.Default.GOOS, build.Default.GOARCH}
 	color.Cyan("Godemon starting...")
-	version := "2.6.0"
+	version := "2.6.1"
 	doneChan := make(chan bool)
 	filepath, modOrFile, cnf, command, help, init, name, oso, arch := cliTools.LoadCMD("", "")
 	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version, init, name, oso, arch, hostInfo[0])
