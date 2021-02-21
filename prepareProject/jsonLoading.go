@@ -19,8 +19,8 @@ func LoadProjectInfo() models.Project {
 	var project models.Project
 	err = json.Unmarshal(byteValue, &project)
 	errors.ErrorHandle(err)
-	if project.Name == "" || project.Path == "" {
-		fmt.Println("Project name or path is empty")
+	if project.Name == "" {
+		fmt.Println("Project name is empty")
 		os.Exit(1)
 	}
 	if project.OS == "" && project.Arch == "" {

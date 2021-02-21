@@ -16,8 +16,6 @@ func deploy(oso string, archL string, hOS string) {
 	var arch string
 	pr := prepareProject.LoadProjectInfo()
 	name := pr.Name
-	err := os.Chdir(pr.Path)
-	errors.ErrorHandle(err)
 	if oso != "" && archL == "" {
 		goos = "GOOS=" + oso
 		arch = "GOARCH=" + archL
@@ -31,7 +29,7 @@ func deploy(oso string, archL string, hOS string) {
 	cmd := exec.Command("env", goos, arch, "go", "build", "-o", name)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	err = cmd.Run()
+	err := cmd.Run()
 	errors.ErrorHandle(err)
 	os.Exit(1)
 }
@@ -42,15 +40,12 @@ func initialize(name string, arch string, oso string) {
 	err = os.Chdir(name)
 	errors.ErrorHandle(err)
 	var project models.Project
-	path, _ := os.Getwd()
-	project.Path = path
 	project.Name = name
 	project.Arch = arch
 	project.OS = oso
 	project.Vars = append(project.Vars, models.Var{"", ""})
 	var command models.Command
 	command.Name = "run"
-	command.Path = path
 	command.Option = "mod"
 	project.Commands = append(project.Commands, command)
 	file, err := json.MarshalIndent(project, "", "	")
@@ -66,10 +61,12 @@ func initialize(name string, arch string, oso string) {
 }
 
 func cnfFunc(command string, filepath string, modOrFile string) (string, string) {
+	var err error
 	project := prepareProject.LoadProjectInfo()
 	for i := 0; i < len(project.Commands); i++ {
 		if command == project.Commands[i].Name {
-			filepath = project.Commands[i].Path
+			filepath, err = os.Getwd()
+			errors.ErrorHandle(err)
 			modOrFile = project.Commands[i].Option
 		}
 	}
