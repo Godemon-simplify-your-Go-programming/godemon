@@ -9,7 +9,7 @@ printf "\nDo you want to do this: \n1. Global \n2. Local \n"
 printf "\nAnswer: "
 read GL
 
-wget https://github.com/nProgrammer/godemon/releases/download/2.6.4/godemon
+wget https://github.com/nProgrammer/godemon/releases/download/2.7.0/godemon
 
 if [ "$OPTION" = "1" ]
 then

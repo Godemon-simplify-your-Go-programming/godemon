@@ -2,11 +2,13 @@ package killProcess
 
 import (
 	"godemon/errors"
+	"godemon/prepareProject"
 	"os"
 	"os/exec"
 )
 
-func killCMDgen(hOS string, name string) *exec.Cmd {
+func killCMDgen(hOS string) *exec.Cmd {
+	name := prepareProject.LoadProjectInfo().Name
 	var cmd *exec.Cmd
 	if hOS == "windows" {
 		cmd = exec.Command("taskkill", "/IM", "app-godemon-app-godemon-tmp-generated"+"-"+name+".exe", "/F")
@@ -16,8 +18,8 @@ func killCMDgen(hOS string, name string) *exec.Cmd {
 	return cmd
 }
 
-func KillProcess(hOS string, name string) {
-	cmd := killCMDgen(hOS, name)
+func KillProcess(hOS string) {
+	cmd := killCMDgen(hOS)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err := cmd.Run()
