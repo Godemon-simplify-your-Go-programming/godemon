@@ -6,11 +6,11 @@ import (
 	"time"
 )
 
-func WatchFiles(fileordirPath string, hOS string) error {
-	return watch(fileordirPath, hOS)
+func WatchFiles(fileordirPath string, hOS string, name string) error {
+	return watch(fileordirPath, hOS, name)
 }
 
-func watch(fileordirPath string, hOS string) error {
+func watch(fileordirPath string, hOS string, name string) error {
 	initialStat, err := os.Stat(fileordirPath)
 	if err != nil {
 		return err
@@ -21,7 +21,7 @@ func watch(fileordirPath string, hOS string) error {
 			return err
 		}
 		if stat.Size() != initialStat.Size() || stat.ModTime() != initialStat.ModTime() {
-			killProcess.KillProcess(hOS)
+			killProcess.KillProcess(hOS, name)
 			break
 		}
 		time.Sleep(1 * time.Second)

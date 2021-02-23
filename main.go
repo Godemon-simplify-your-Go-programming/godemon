@@ -1,5 +1,3 @@
-// TODO - prepare the code to manage all errors that user can do
-
 package main
 
 import (
@@ -18,7 +16,7 @@ import (
 func main() {
 	hostInfo := [2]string{build.Default.GOOS, build.Default.GOARCH}
 	color.Cyan("Godemon starting...")
-	version := "2.6.2"
+	version := "2.6.3"
 	doneChan := make(chan bool)
 	filepath, modOrFile, cnf, command, help, init, name, oso, arch := cliTools.LoadCMD("", "")
 	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version, init, name, oso, arch, hostInfo[0])
@@ -27,7 +25,7 @@ func main() {
 			defer func() {
 				doneChan <- true
 			}()
-			err := controllers.WatchFiles(filepath, hostInfo[0])
+			err := controllers.WatchFiles(filepath, hostInfo[0], name)
 			errors.ErrorHandle(err)
 			fmt.Println("File has been changed")
 			if modOrFile == "mod" {
@@ -35,12 +33,12 @@ func main() {
 				errors.ErrorHandle(err)
 				cliTools.TimeLog()
 				var cmd *exec.Cmd
-				cmd = models.CMDhotReload(hostInfo)
+				cmd = models.CMDhotReload(hostInfo, name)
 				cmd.Stdout = os.Stdout
 				cmd.Stderr = os.Stderr
 				err = cmd.Run()
 				errors.ErrorHandle(err)
-				go execs.ExecMOD(hostInfo[0])
+				go execs.ExecMOD(hostInfo[0], name)
 			} else if modOrFile == "file" {
 				cliTools.TimeLog()
 				go execs.ExecFile(filepath)
