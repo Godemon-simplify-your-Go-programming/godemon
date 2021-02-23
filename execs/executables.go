@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-func ExecMOD(hOS string, name string) {
+func ExecMOD(hOS string, name string, logs bool) {
 	jsonFile, err := os.Open("project.json")
 	errors.ErrorHandle(err)
 	defer jsonFile.Close()
@@ -21,7 +21,7 @@ func ExecMOD(hOS string, name string) {
 		err = os.Setenv(pr.Vars[i].Key, pr.Vars[i].Value)
 		errors.TMPerrorHandle(err)
 	}
-	execMOD(hOS, name)
+	execMOD(hOS, name, logs)
 }
 
 func ExecFile(filepath string) {

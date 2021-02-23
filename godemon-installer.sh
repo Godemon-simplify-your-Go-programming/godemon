@@ -1,6 +1,6 @@
 #!/bin/sh
 
-wget https://github.com/nProgrammer/godemon/releases/download/2.6.3/godemon
+printf "**********_________________***********\n*********/*****************\**********\n********/*******************\*********\n*******/_____________________\********\n*********WELCOME TO GODEMON***********\n*************INSTALLER****************\n\n"
 
 printf "What do you want to do? \n1. Install Godemon \n2. Update Godemon \n"
 printf "\nAnswer: "
@@ -8,6 +8,8 @@ read OPTION
 printf "\nDo you want to do this: \n1. Global \n2. Local \n"
 printf "\nAnswer: "
 read GL
+
+wget https://github.com/nProgrammer/godemon/releases/download/2.6.4/godemon
 
 if [ "$OPTION" = "1" ]
 then
@@ -36,8 +38,6 @@ then
     sudo chmod 777 /usr/local/.godemon/bin/godemon
   fi
 fi
-
-sudo rm -r godemon
 
 printf "\n Everything done \n"
 if [ "$OPTION" = "1" ]

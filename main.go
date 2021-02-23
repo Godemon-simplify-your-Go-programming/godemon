@@ -16,9 +16,9 @@ import (
 func main() {
 	hostInfo := [2]string{build.Default.GOOS, build.Default.GOARCH}
 	color.Cyan("Godemon starting...")
-	version := "2.6.3"
+	version := "2.6.4"
 	doneChan := make(chan bool)
-	filepath, modOrFile, cnf, command, help, init, name, oso, arch := cliTools.LoadCMD("", "")
+	filepath, modOrFile, cnf, command, help, init, name, oso, arch, logs := cliTools.LoadCMD("", "")
 	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version, init, name, oso, arch, hostInfo[0])
 	for true {
 		go func(doneChan chan bool) {
@@ -38,7 +38,7 @@ func main() {
 				cmd.Stderr = os.Stderr
 				err = cmd.Run()
 				errors.ErrorHandle(err)
-				go execs.ExecMOD(hostInfo[0], name)
+				go execs.ExecMOD(hostInfo[0], name, logs)
 			} else if modOrFile == "file" {
 				cliTools.TimeLog()
 				go execs.ExecFile(filepath)
