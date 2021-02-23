@@ -15,24 +15,24 @@ then
   then
     mkdir ~/.godemon
     mkdir ~/.godemon/bin/
-    sudo mv -r godemon ~/.godemon/bin/
+    sudo mv godemon ~/.godemon/bin/
     sudo chmod 777 ~/.godemon/bin/godemon
   elif [ "$GL" = "1" ]
   then
     sudo mkdir /usr/local/.godemon
     sudo mkdir /usr/local/.godemon/bin/
-    sudo mv -r godemon /usr/local/.godemon/bin/
+    sudo mv godemon /usr/local/.godemon/bin/
     sudo chmod 777 /usr/local/.godemon/bin/godemon
   fi
 elif [ "$OPTION" = "2" ]
 then
   if [ "$GL" = "2" ]
   then
-    sudo mv -r godemon ~/.godemon/bin/
+    sudo mv godemon ~/.godemon/bin/
     sudo chmod 777 ~/.godemon/bin/godemon
   elif [ "$GL" = "1" ]
   then
-    sudo mv -r godemon /usr/local/.godemon/bin/
+    sudo mv godemon /usr/local/.godemon/bin/
     sudo chmod 777 /usr/local/.godemon/bin/godemon
   fi
 fi
