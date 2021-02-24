@@ -1,6 +1,6 @@
 #!/bin/sh
 
-function buildApp() {
+buildApp() {
     unzip godemon-2.7.1-beta.zip
     cd ./godemon-2.7.1-beta.zip
     go build
