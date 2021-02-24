@@ -1,8 +1,8 @@
 #!/bin/sh
 
 buildApp() {
-    unzip 2.7.2.zip
-    cd ./godemon-2.7.2
+    unzip 21.03.zip
+    cd ./godemon-21.03
     go build
 }
 
@@ -14,8 +14,8 @@ prepareDirs() {
 
 removing() {
   cd ..
-  sudo rm -r godemon-2.7.2
-  sudo rm -r 2.7.2.zip
+  sudo rm -r godemon-21.03
+  sudo rm -r 21.03.zip
 }
 
 
@@ -28,7 +28,7 @@ printf "\nDo you want to do this: \n1. Global \n2. Local \n"
 printf "\nAnswer: "
 read GL
 
-wget https://github.com/nProgrammer/godemon/archive/2.7.2.zip
+wget https://github.com/nProgrammer/godemon/archive/21.03.zip
 
 if [ "$OPTION" = "1" ]
 then
