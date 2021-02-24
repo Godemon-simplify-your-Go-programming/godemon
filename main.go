@@ -1,3 +1,5 @@
+//TODO - create wiki - 1. Requirements + installation, 2. Initializing, 3. Running single file, 4. Using functionality of 'project.json'
+
 package main
 
 import (
