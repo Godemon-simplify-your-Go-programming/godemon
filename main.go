@@ -19,7 +19,7 @@ import (
 func main() {
 	hostInfo := [2]string{build.Default.GOOS, build.Default.GOARCH}
 	color.Cyan("Godemon starting...")
-	version := "2.7.1"
+	version := "2.7.2"
 	color.HiMagenta("Welcome to godemon " + version)
 	doneChan := make(chan bool)
 	filepath, modOrFile, cnf, command, help, init, name, oso, arch := cliTools.LoadCMD("", "")
