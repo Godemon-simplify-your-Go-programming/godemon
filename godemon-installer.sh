@@ -1,10 +1,17 @@
 #!/bin/sh
 
 buildApp() {
-    unzip godemon-2.7.1-beta.zip
-    cd ./godemon-2.7.1-beta.zip
+    unzip 2.7.1-beta.zip
+    cd ./godemon-2.7.1-beta
     go build
 }
+
+prepareDirs() {
+    mkdir ~/.godemon
+    mkdir ~/.godemon/logs/
+    mkdir ~/.godemon/bin/
+}
+
 
 printf "**********_________________***********\n*********/*****************\**********\n********/*******************\*********\n*******/_____________________\********\n*********WELCOME TO GODEMON***********\n*************INSTALLER****************\n\n"
 
@@ -22,17 +29,14 @@ then
   if [ "$GL" = "2" ]
   then
     buildApp
-    mkdir ~/.godemon
-    mkdir ~/.godemon/logs/
-    mkdir ~/.godemon/bin/
+    prepareDirs
     sudo mv godemon ~/.godemon/bin/
     sudo chmod 777 ~/.godemon/bin/godemon
   elif [ "$GL" = "1" ]
   then
     buildApp
     sudo mkdir /usr/local/.godemon
-    sudo mkdir ~/.godemon
-    sudo mkdir ~/.godemon/logs/
+    prepareDirs
     sudo mkdir /usr/local/.godemon/bin/
     sudo mv godemon /usr/local/.godemon/bin/
     sudo chmod 777 /usr/local/.godemon/bin/godemon
