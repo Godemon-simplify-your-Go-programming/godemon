@@ -2,8 +2,8 @@ package prepareProject
 
 import (
 	"encoding/json"
-	"fmt"
 	"go/build"
+	"godemon/cliTools"
 	"godemon/errors"
 	"godemon/models"
 	"io/ioutil"
@@ -19,10 +19,7 @@ func LoadProjectInfo() models.Project {
 	var project models.Project
 	err = json.Unmarshal(byteValue, &project)
 	errors.ErrorHandle(err)
-	if project.Name == "" {
-		fmt.Println("Project name is empty")
-		os.Exit(1)
-	}
+	cliTools.LoadedNameIsEmpty(project)
 	if project.OS == "" && project.Arch == "" {
 		project.OS = build.Default.GOOS
 		project.Arch = build.Default.GOARCH

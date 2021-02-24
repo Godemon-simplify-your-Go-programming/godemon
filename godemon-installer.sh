@@ -16,12 +16,15 @@ then
   if [ "$GL" = "2" ]
   then
     mkdir ~/.godemon
+    mkdir ~/.godemon/logs/
     mkdir ~/.godemon/bin/
     sudo mv godemon ~/.godemon/bin/
     sudo chmod 777 ~/.godemon/bin/godemon
   elif [ "$GL" = "1" ]
   then
     sudo mkdir /usr/local/.godemon
+    sudo mkdir ~/.godemon
+    sudo mkdir ~/.godemon/logs/
     sudo mkdir /usr/local/.godemon/bin/
     sudo mv godemon /usr/local/.godemon/bin/
     sudo chmod 777 /usr/local/.godemon/bin/godemon

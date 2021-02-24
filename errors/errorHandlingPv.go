@@ -5,6 +5,7 @@ import (
 	"github.com/fatih/color"
 	"godemon/models"
 	"io/ioutil"
+	"time"
 )
 
 func errorHandle(err error) {
@@ -17,6 +18,7 @@ func secretErrorHandle(err error) {
 	if err != nil {
 		var errorM models.ErrorTMP
 		file, _ := json.MarshalIndent(errorM, "", "	")
-		err = ioutil.WriteFile("/tmp/errorM.json", file, 0644)
+		fileName := "error" + time.Now().Format("2006-01-02") + ".json"
+		err = ioutil.WriteFile("~/.godemon/logs/"+fileName, file, 0644)
 	}
 }
