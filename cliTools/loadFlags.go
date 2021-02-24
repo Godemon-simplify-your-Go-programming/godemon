@@ -2,6 +2,8 @@ package cliTools
 
 import (
 	"flag"
+	"github.com/fatih/color"
+	"go/build"
 )
 
 func LoadCMD(filepath string, modOrFile string) (string, string, string, string, *bool, bool, string, string, string) {
@@ -25,5 +27,17 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 	arch := *archP
 	command := *commandP
 	modOrFile = *modOrFileP
+	if init == true && name == "" {
+		color.Red("Missing parameter: -name")
+	} else if init == true {
+		if arch == "" && os == "" {
+			arch = build.Default.GOARCH
+			os = build.Default.GOOS
+		} else if arch == "" {
+			arch = build.Default.GOARCH
+		} else if os == "" {
+			os = build.Default.GOOS
+		}
+	}
 	return filepath, modOrFile, cnf, command, helpP, init, name, os, arch
 }
