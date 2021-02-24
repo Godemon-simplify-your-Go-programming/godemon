@@ -8,7 +8,11 @@
 
 ---
 
+### URL to guide:
 
+https://drive.google.com/file/d/18jIB-47JwSrOb5404U9mkt3pHhrAiack/view?usp=sharing
+
+---
 
 ### What do you have to install before using `godemon`:
 1. Go compiler,
