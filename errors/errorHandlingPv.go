@@ -2,7 +2,6 @@ package errors
 
 import (
 	"encoding/json"
-	"github.com/fatih/color"
 	"godemon/models"
 	"io/ioutil"
 	"time"
@@ -10,7 +9,7 @@ import (
 
 func errorHandle(err error) {
 	if err != nil {
-		color.Cyan(err.Error())
+		secretErrorHandle(err)
 	}
 }
 
