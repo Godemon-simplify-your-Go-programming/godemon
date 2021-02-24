@@ -1,6 +1,3 @@
-//TODO - create wiki - 1. Requirements + installation, 2. Initializing, 3. Running single file, 4. Using functionality of 'project.json'
-//TODO - do benchmarks, try minimize usage of memory and CPU/GPU
-
 package main
 
 import (
@@ -19,7 +16,7 @@ import (
 func main() {
 	hostInfo := [2]string{build.Default.GOOS, build.Default.GOARCH}
 	color.Cyan("Godemon starting...")
-	version := "2.7.2"
+	version := "21.03"
 	color.HiMagenta("Welcome to godemon " + version)
 	doneChan := make(chan bool)
 	filepath, modOrFile, cnf, command, help, init, name, oso, arch := cliTools.LoadCMD("", "")
