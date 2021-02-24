@@ -1,3 +1,7 @@
+# I'm very sorry, I've got a probelm with Windows support
+
+---
+
 # Godemon
 
 ##### Compatible with - Windows, Linux and MacOS
