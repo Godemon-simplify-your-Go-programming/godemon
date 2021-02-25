@@ -6,7 +6,7 @@ import (
 	"go/build"
 )
 
-func LoadCMD(filepath string, modOrFile string) (string, string, string, string, *bool, bool, string, string, string) {
+func LoadCMD(filepath string, modOrFile string) (string, string, string, string, *bool, bool, string, string, string, string) {
 	var filepathP *string
 	var modOrFileP *string
 	cnfP := flag.String("cnf", "", "a string")
@@ -27,8 +27,10 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 	arch := *archP
 	command := *commandP
 	modOrFile = *modOrFileP
+	cont := ""
 	if init == true && name == "" {
 		color.Red("Missing parameter: -name")
+		cont = "Exit"
 	} else if init == true {
 		if arch == "" && os == "" {
 			arch = build.Default.GOARCH
@@ -39,5 +41,5 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 			os = build.Default.GOOS
 		}
 	}
-	return filepath, modOrFile, cnf, command, helpP, init, name, os, arch
+	return filepath, modOrFile, cnf, command, helpP, init, name, os, arch, cont
 }
