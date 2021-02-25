@@ -33,21 +33,29 @@ argument - `mod` , if file pass argument - `file`
 
 If you need help with clie use command `./godemon -help`
 
-### Installing `godemon` with `installer.sh`
-1. `wget https://github.com/nProgrammer/godemon/releases/download/x.x.x/installer.sh`
-2. `sudo chmod 777 ./installer.sh`
-3. `./installer.sh`
+### Installation using `godemon-installer.sh`
 
-### Installing `godemon` from source code
-1. Download source code from releases or use `git clone https://github.com/nProgrammer/godemon`
-2. `cd ./godemon`
-3. `go build`
-   
-If Windows:
-4. Move `godemon.exe` to `System32`
-   
-On Linux:
-4. `sudo cp godemon /bin/godemon`
+1. Download the `installer.sh` from the newest release
+2. Use command in terminal - `sudo chmod 777 ./godemon-installer.sh`
+3. After this use command - `sudo ./godemon-installer.sh` and choose 1st option
+
+
+---
+### Installation from source code
+
+1. Use command - `wget https://github.com/nProgrammer/godemon/archive/XX.XX.zip`
+2. Unzip the .zip directory
+3. Go to directory with source code
+4. Use command - `go build`
+5. After this use command - `sudo chmod 777 ./godemon; mkdir ~/.godemon; mkdir ~/.godemon/bin; mv ./godemon ~/.godemon/bin`
+6. Now add `export PATH=$PATH:~/.godemon/bin` to file `.bashrc`
+
+---
+### Updating the `godemon`
+
+1. Download the `godemon-installer.sh` from the newest release
+2. Use command in terminal - `sudo chmod 777 ./godemon-installer.sh`
+3. After this use command - `sudo ./godemon-installer.sh` and choose 2nd option
 
 ### Installing `godemon` from `godemon.exe`
 1. Download `godemon.exe`
@@ -61,7 +69,6 @@ On Linux:
    "name": "test2",
    "arch": "amd64",
    "os": "linux",
-   "path": "/home/nwagner/Desktop/godemon/test2",
    "dev-vars": [
       {
          "key": "PORT",
@@ -71,7 +78,6 @@ On Linux:
    "commands": [
       {
          "name": "run",
-         "path": "/home/nwagner/Desktop/godemon/api/",
          "file": "mod"
       }
    ]
