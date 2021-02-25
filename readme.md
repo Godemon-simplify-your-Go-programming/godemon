@@ -1,4 +1,4 @@
-# I'm very sorry, I've got a probelm with Windows support
+# I'm very sorry, for now windows version doesn't work
 
 ---
 
