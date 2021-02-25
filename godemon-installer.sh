@@ -71,9 +71,9 @@ if [ "$OPTION" = "1" ]
 then
   if [ "$GL" = "2" ]
   then
-    printf "\n Now add to .bashrc following line: export PATH=\$PATH:~/.godemon/bin"
+    printf "\nNow add to .bashrc following line: export PATH=\$PATH:~/.godemon/bin"
   elif [ "$GL" = "1" ]
   then
-    printf "\n Now add to .bashrc following line: export PATH=\$PATH:/usr/local/.godemon/bin"
+    printf "\nNow add to .bashrc following line: export PATH=\$PATH:/usr/local/.godemon/bin \nIf it's MacOS - add this line to .zshenv"
   fi
 fi
