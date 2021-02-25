@@ -1,3 +1,7 @@
+//TODO - optimize memory and cpu/gpu usage
+//TODO - add windows full support
+//TODO - project.json - can't run single file cuz there's no path variable
+
 package main
 
 import (
