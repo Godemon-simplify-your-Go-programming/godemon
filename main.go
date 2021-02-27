@@ -1,6 +1,11 @@
 //TODO - optimize memory and cpu/gpu usage
 //TODO - add windows full support
 //TODO - project.json - can't run single file cuz there's no path variable
+//TODO - update as a bin file - godemon-update
+//TODO - change CLI logo in installer to lighting
+//TODO - create Windows installer
+//TODO - auto add of export statement to .zshenv or .bashrc
+//TODO - auto add of PATH to PATH in windows
 
 package main
 
@@ -20,7 +25,7 @@ import (
 func main() {
 	hostInfo := [2]string{build.Default.GOOS, build.Default.GOARCH}
 	color.Cyan("Godemon starting...")
-	version := "21.03"
+	version := "21.04"
 	color.HiMagenta("Welcome to godemon " + version)
 	doneChan := make(chan bool)
 	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont := cliTools.LoadCMD("", "")
