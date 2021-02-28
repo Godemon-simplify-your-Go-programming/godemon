@@ -1,6 +1,5 @@
 //TODO - optimize memory and cpu/gpu usage
 //TODO - add windows full support
-//TODO - change CLI logo in installer to lighting
 //TODO - create Windows installer
 //TODO - auto add of export statement to .zshenv or .bashrc
 //TODO - auto add of PATH to PATH in windows
@@ -24,7 +23,7 @@ import (
 func main() {
 	hostInfo := [2]string{build.Default.GOOS, build.Default.GOARCH}
 	color.Cyan("Godemon starting...")
-	version := "21.04 LTS"
+	version := "21.04"
 	color.HiMagenta("Welcome to godemon " + version)
 	doneChan := make(chan bool)
 	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont := cliTools.LoadCMD("", "")
