@@ -68,6 +68,9 @@ func cnfFunc(command string, filepath string, modOrFile string) (string, string)
 			filepath, err = os.Getwd()
 			errors.ErrorHandle(err)
 			modOrFile = project.Commands[i].Option
+			if modOrFile == "file" {
+				filepath = project.Commands[i].Path
+			}
 		}
 	}
 	cliTools.CheckModOrPath(modOrFile, filepath)
