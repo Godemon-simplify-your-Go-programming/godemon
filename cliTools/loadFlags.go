@@ -8,8 +8,9 @@ import (
 
 func LoadCMD(filepath string, modOrFile string) (string, string, string, string, *bool, bool, string, string, string, string) {
 	var filepathP *string
-	var modOrFileP *string
-	cnfP := flag.String("cnf", "", "a string")
+	cmd := flag.Bool("cmd", false, "a bool")
+	cnfM := flag.Bool("cnf", false, "a bool")
+	deploy := flag.Bool("deploy", false, "a bool")
 	filepathP = flag.String("path", "", "a string")
 	commandP := flag.String("command", "", "a string")
 	helpP := flag.Bool("help", false, "a bool")
@@ -17,16 +18,31 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 	nameP := flag.String("name", "", "a string")
 	osP := flag.String("os", "", "a string")
 	archP := flag.String("arch", "", "a string")
-	modOrFileP = flag.String("modOrFile", "", "a string")
+	mod := flag.Bool("mod", false, "a bool")
+	file := flag.Bool("file", false, "a bool")
 	flag.Parse()
-	cnf := *cnfP
+	cnf := ""
+	if *cmd == true {
+		cnf = "cmd"
+	} else if *cnfM == true {
+		cnf = "cnf"
+	} else if *deploy == true {
+		cnf = "deploy"
+	} else if (*cmd == true && *cnfM == true) || (*cmd == true && *deploy == true) || (*cnfM == true && *deploy == true) {
+		color.Red("Too many mode parameters")
+	}
 	filepath = *filepathP
 	init := *initP
 	name := *nameP
 	os := *osP
 	arch := *archP
 	command := *commandP
-	modOrFile = *modOrFileP
+	modOrFile = ""
+	if *mod == true {
+		modOrFile = "mod"
+	} else if *file == true {
+		modOrFile = "mod"
+	}
 	cont := ""
 	if init == true && name == "" {
 		color.Red("Missing parameter: -name")
