@@ -12,8 +12,8 @@ prepareDirs() {
     mkdir ~/.godemon
     mkdir ~/.godemon/logs/
     mkdir ~/.godemon/bin/
-    sudo chmod 777 .godemon-installer
-    mv ./godemon-installer ~/.godemon/bin
+    sudo chmod 777 .godemon-update
+    mv ./godemon-update ~/.godemon/bin
 }
 
 removing() {
