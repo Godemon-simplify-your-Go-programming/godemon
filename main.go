@@ -1,6 +1,5 @@
 //TODO - optimize memory and cpu/gpu usage
 //TODO - add windows full support
-//TODO - update as a bin file - godemon-update
 //TODO - change CLI logo in installer to lighting
 //TODO - create Windows installer
 //TODO - auto add of export statement to .zshenv or .bashrc
