@@ -1,4 +1,3 @@
-//TODO - optimize memory and cpu/gpu usage
 //TODO - add windows full support
 //TODO - create Windows installer
 //TODO - golang delve support
