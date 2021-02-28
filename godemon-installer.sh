@@ -1,5 +1,7 @@
 #!/bin/sh
 
+#latest release url - https://github.com/nProgrammer/godemon/releases/latest/download/...
+
 buildApp() {
     unzip 21.03.zip
     cd ./godemon-21.03
@@ -10,6 +12,8 @@ prepareDirs() {
     mkdir ~/.godemon
     mkdir ~/.godemon/logs/
     mkdir ~/.godemon/bin/
+    sudo chmod 777 .godemon-installer
+    mv ./godemon-installer ~/.godemon/bin
 }
 
 removing() {
@@ -66,14 +70,14 @@ then
   fi
 fi
 
-printf "\n Everything done \n"
+printf "\nEverything done \n"
 if [ "$OPTION" = "1" ]
 then
   if [ "$GL" = "2" ]
   then
-    printf "\nNow add to .bashrc following line: export PATH=\$PATH:~/.godemon/bin"
+    printf "\nNow add to .bashrc or .zshenv following line: export PATH=\$PATH:~/.godemon/bin \n"
   elif [ "$GL" = "1" ]
   then
-    printf "\nNow add to .bashrc following line: export PATH=\$PATH:/usr/local/.godemon/bin \nIf it's MacOS - add this line to .zshenv"
+    printf "\nNow add to .bashrc following line: export PATH=\$PATH:/usr/local/.godemon/bin \nIf it's MacOS - add this line to .zshenv and export PATH=\$PATH:~/.godemon/bin \n"
   fi
 fi
