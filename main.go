@@ -1,8 +1,6 @@
 //TODO - optimize memory and cpu/gpu usage
 //TODO - add windows full support
 //TODO - create Windows installer
-//TODO - auto add of export statement to .zshenv or .bashrc
-//TODO - auto add of PATH to PATH in windows
 //TODO - golang delve support
 
 package main
