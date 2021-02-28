@@ -12,7 +12,7 @@ prepareDirs() {
     mkdir ~/.godemon
     mkdir ~/.godemon/logs/
     mkdir ~/.godemon/bin/
-    sudo chmod 777 .godemon-update
+    sudo chmod 777 ./godemon-update
     mv ./godemon-update ~/.godemon/bin
 }
 
