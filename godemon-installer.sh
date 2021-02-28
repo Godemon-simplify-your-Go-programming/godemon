@@ -3,8 +3,8 @@
 #latest release url - https://github.com/nProgrammer/godemon/releases/latest/download/...
 
 buildApp() {
-    unzip 21.03.zip
-    cd ./godemon-21.03
+    unzip 21.04-beta.zip
+    cd ./godemon-21.04-beta
     go build
 }
 
@@ -18,8 +18,8 @@ prepareDirs() {
 
 removing() {
   cd ..
-  sudo rm -r godemon-21.03
-  sudo rm -r 21.03.zip
+  sudo rm -r godemon-21.04-beta
+  sudo rm -r 21.04-beta.zip
 }
 
 
@@ -32,7 +32,7 @@ printf "\nDo you want to do this: \n1. Global \n2. Local \n"
 printf "\nAnswer: "
 read GL
 
-wget https://github.com/nProgrammer/godemon/archive/21.03.zip
+wget https://github.com/nProgrammer/godemon/archive/21.04-beta.zip
 
 if [ "$OPTION" = "1" ]
 then
