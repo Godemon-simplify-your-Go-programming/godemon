@@ -16,7 +16,6 @@ import (
 	"godemon/errors"
 	"godemon/execs"
 	"godemon/hotReload"
-	"log"
 	"os"
 	"os/exec"
 )
@@ -32,14 +31,12 @@ func main() {
 		os.Exit(1)
 	}
 	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version, init, name, oso, arch, hostInfo[0])
-	log.Println(filepath)
 	for true {
 		go func(doneChan chan bool) {
 			defer func() {
 				doneChan <- true
 			}()
 			err := controllers.WatchFiles(filepath, hostInfo[0])
-			log.Println("After Watch")
 			errors.ErrorHandle(err)
 			fmt.Println("File has been changed")
 			if modOrFile == "mod" {
