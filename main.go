@@ -1,6 +1,8 @@
 //TODO - add windows full support
 //TODO - create Windows installer
 //TODO - golang delve support
+//TODO - create new README.md
+//TODO - create new WIKI
 
 package main
 
