@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"godemon/killProcess"
+	"log"
 	"os"
 	"time"
 )
@@ -11,6 +12,7 @@ func WatchFiles(fileordirPath string, hOS string) error {
 }
 
 func watch(fileordirPath string, hOS string) error {
+	log.Println("Watch 1")
 	initialStat, err := os.Stat(fileordirPath)
 	if err != nil {
 		return err
@@ -25,6 +27,7 @@ func watch(fileordirPath string, hOS string) error {
 			break
 		}
 		time.Sleep(1 * time.Second)
+		log.Println("Watch 2")
 	}
 	return nil
 }
