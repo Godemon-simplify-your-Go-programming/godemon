@@ -1,3 +1,4 @@
+//TODO - macos support problem - to solve
 //TODO - add windows full support
 //TODO - create Windows installer
 //TODO - golang delve support
