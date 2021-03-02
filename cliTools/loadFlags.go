@@ -57,5 +57,8 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 			os = build.Default.GOOS
 		}
 	}
+	if *deploy == true && (*file == true || *cmd == true || *cnfM == true || *filepathP != "" || *commandP != "" || *helpP == true || *initP == true || *nameP != "" || *osP != "" || *archP != "" || *mod == true) {
+		color.Red("Warning!!! Deploy takes only deploy argument")
+	}
 	return filepath, modOrFile, cnf, command, helpP, init, name, os, arch, cont
 }
