@@ -17,8 +17,14 @@ type Project struct {
 	OS       string    `json:"os"`
 	Vars     []Var     `json:"dev-vars"`
 	Commands []Command `json:"commands"`
+	Files    []File    `json:"files"`
 }
 
 type ErrorTMP struct {
 	Message string `json:"message"`
+}
+
+type File struct {
+	Name string `json:"name"`
+	Path string `json:"path"`
 }

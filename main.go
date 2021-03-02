@@ -1,4 +1,3 @@
-//TODO - macos support problem - to solve
 //TODO - add windows full support
 //TODO - create Windows installer
 //TODO - golang delve support
@@ -23,7 +22,7 @@ import (
 func main() {
 	hostInfo := [2]string{build.Default.GOOS, build.Default.GOARCH}
 	color.Cyan("Godemon starting...")
-	version := "21.04-BETA"
+	version := "21.04"
 	color.HiMagenta("Welcome to godemon " + version)
 	doneChan := make(chan bool)
 	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont := cliTools.LoadCMD("", "")
