@@ -4,6 +4,7 @@
 //TODO - create new README.md
 //TODO - create new WIKI
 //TODO - add CMD option support
+//TODO - add functions that edit project.json from cli
 
 package main
 
