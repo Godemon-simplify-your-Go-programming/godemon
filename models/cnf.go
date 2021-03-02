@@ -20,10 +20,6 @@ type Project struct {
 	Files    []File    `json:"files"`
 }
 
-type ErrorTMP struct {
-	Message string `json:"message"`
-}
-
 type File struct {
 	Name string `json:"name"`
 	Path string `json:"path"`
