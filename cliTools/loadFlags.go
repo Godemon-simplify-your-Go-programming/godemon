@@ -7,7 +7,7 @@ import (
 	os1 "os"
 )
 
-func LoadCMD(filepath string, modOrFile string) (string, string, string, string, *bool, bool, string, string, string, string) {
+func LoadCMD(filepath string, modOrFile string) (string, string, string, string, *bool, bool, string, string, string, string, bool) {
 	var filepathP *string
 	cmd := flag.Bool("cmd", false, "a bool")
 	cnfM := flag.Bool("cnf", false, "a bool")
@@ -21,6 +21,7 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 	archP := flag.String("arch", "", "a string")
 	mod := flag.Bool("mod", false, "a bool")
 	file := flag.Bool("file", false, "a bool")
+	addCmd := flag.Bool("addCmd", false, "a bool")
 	flag.Parse()
 	cnf := ""
 	if *cmd == true {
@@ -70,5 +71,5 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 		color.Red("Warning!!! Deploy takes only deploy argument")
 		os1.Exit(1)
 	}
-	return filepath, modOrFile, cnf, command, helpP, init, name, os, arch, cont
+	return filepath, modOrFile, cnf, command, helpP, init, name, os, arch, cont, *addCmd
 }
