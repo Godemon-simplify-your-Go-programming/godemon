@@ -3,7 +3,7 @@
 //TODO - golang delve support
 //TODO - create new README.md
 //TODO - create new WIKI
-//TODO - add functions that edit project.json from cli
+//TODO - add CMD option support
 
 package main
 
@@ -16,7 +16,6 @@ import (
 	"godemon/errors"
 	"godemon/execs"
 	"godemon/hotReload"
-	"godemon/infoUpdate"
 	"os"
 	"os/exec"
 )
@@ -27,18 +26,17 @@ func main() {
 	version := "21.04"
 	color.HiMagenta("Welcome to godemon " + version)
 	doneChan := make(chan bool)
-	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont, addCmd, addFile := cliTools.LoadCMD("", "")
+	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont := cliTools.LoadCMD("", "")
 	if cont == "Exit" {
 		os.Exit(1)
 	}
-	infoUpdate.Update(addCmd, addFile, name, modOrFile, filepath)
 	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version, init, name, oso, arch, hostInfo[0])
 	for true {
 		go func(doneChan chan bool) {
 			defer func() {
 				doneChan <- true
 			}()
-			err := controllers.WatchFiles(filepath, hostInfo[0], cnf)
+			err := controllers.WatchFiles(filepath, hostInfo[0])
 			errors.ErrorHandle(err)
 			fmt.Println("File has been changed")
 			if modOrFile == "mod" {
