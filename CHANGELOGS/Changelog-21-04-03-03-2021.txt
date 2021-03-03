@@ -5,3 +5,4 @@
     3. file.go
     4. project.go
     5. var.go
+- Added changelogs directory
