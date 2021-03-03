@@ -19,3 +19,15 @@ func ModifyJSONCommands(option string, name string, path string) {
 	err = ioutil.WriteFile("project.json", file, 0644)
 	errors.ErrorHandle(err)
 }
+
+func ModifyJSONFiles(name string, path string) {
+	project := LoadProjectInfo()
+	var fileJ models.File
+	fileJ.Name = name
+	fileJ.Path = path
+	project.Files = append(project.Files, fileJ)
+	file, err := json.MarshalIndent(project, "", "	")
+	errors.ErrorHandle(err)
+	err = ioutil.WriteFile("project.json", file, 0644)
+	errors.ErrorHandle(err)
+}
