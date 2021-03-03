@@ -1,10 +1,9 @@
-//TODO - add windows full support
-//TODO - create Windows installer
-//TODO - golang delve support
-//TODO - create new README.md
-//TODO - create new WIKI
-//TODO - add functions that edit project.json from cli
+//TODO - create Windows installer - Patryk
+//TODO - create new README.md - Norbert
+//TODO - create new WIKI - Norbert
+//TODO - new help section - Patryk
 
+//TODO - 21.05 - golang delve support
 package main
 
 import (
