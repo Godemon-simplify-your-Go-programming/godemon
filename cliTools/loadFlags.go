@@ -41,7 +41,7 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 	if *mod == true {
 		modOrFile = "mod"
 	} else if *file == true {
-		modOrFile = "mod"
+		modOrFile = "file"
 	}
 	cont := ""
 	if init == true && name == "" {

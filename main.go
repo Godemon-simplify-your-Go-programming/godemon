@@ -37,7 +37,7 @@ func main() {
 			defer func() {
 				doneChan <- true
 			}()
-			err := controllers.WatchFiles(filepath, hostInfo[0])
+			err := controllers.WatchFiles(filepath, hostInfo[0], cnf)
 			errors.ErrorHandle(err)
 			fmt.Println("File has been changed")
 			if modOrFile == "mod" {
