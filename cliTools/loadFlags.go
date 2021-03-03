@@ -6,7 +6,7 @@ import (
 	"go/build"
 )
 
-func LoadCMD(filepath string, modOrFile string) (string, string, string, string, *bool, bool, string, string, string, string) {
+func LoadCMD(filepath string, modOrFile string) (string, string, string, string, *bool, bool, string, string, string, string, bool) {
 	var filepathP *string
 	cmd := flag.Bool("cmd", false, "a bool")
 	cnfM := flag.Bool("cnf", false, "a bool")
@@ -20,8 +20,10 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 	archP := flag.String("arch", "", "a string")
 	mod := flag.Bool("mod", false, "a bool")
 	file := flag.Bool("file", false, "a bool")
+	addFileM := flag.Bool("addFile",false,"a bool")
 	flag.Parse()
 	cnf := ""
+	addFile := false
 	if *cmd == true {
 		cnf = "cmd"
 	} else if *cnfM == true {
@@ -30,6 +32,8 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 		cnf = "deploy"
 	} else if (*cmd == true && *cnfM == true) || (*cmd == true && *deploy == true) || (*cnfM == true && *deploy == true) {
 		color.Red("Too many mode parameters")
+	} else if *addFileM == true {
+		addFile = true
 	}
 	filepath = *filepathP
 	init := *initP
@@ -63,5 +67,5 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 	if *cnfM == true && *commandP == "" {
 		color.Red("You must specify a command")
 	}
-	return filepath, modOrFile, cnf, command, helpP, init, name, os, arch, cont
+	return filepath, modOrFile, cnf, command, helpP, init, name, os, arch, cont, addFile
 }

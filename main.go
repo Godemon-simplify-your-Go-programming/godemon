@@ -26,11 +26,11 @@ func main() {
 	version := "21.04"
 	color.HiMagenta("Welcome to godemon " + version)
 	doneChan := make(chan bool)
-	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont := cliTools.LoadCMD("", "")
+	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont, addFile := cliTools.LoadCMD("", "")
 	if cont == "Exit" {
 		os.Exit(1)
 	}
-	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version, init, name, oso, arch, hostInfo[0])
+	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version, init, name, oso, arch, hostInfo[0], addFile)
 	for true {
 		go func(doneChan chan bool) {
 			defer func() {
