@@ -4,6 +4,7 @@ import (
 	"flag"
 	"github.com/fatih/color"
 	"go/build"
+	os1 "os"
 )
 
 func LoadCMD(filepath string, modOrFile string) (string, string, string, string, *bool, bool, string, string, string, string) {
@@ -30,6 +31,7 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 		cnf = "deploy"
 	} else if (*cmd == true && *cnfM == true) || (*cmd == true && *deploy == true) || (*cnfM == true && *deploy == true) {
 		color.Red("Too many mode parameters")
+		os1.Exit(1)
 	}
 	filepath = *filepathP
 	init := *initP
@@ -42,6 +44,13 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 		modOrFile = "mod"
 	} else if *file == true {
 		modOrFile = "file"
+	}
+	if *cmd == true && filepath == "" {
+		color.Red("Path is empty")
+		os1.Exit(1)
+	} else if *cmd == true && *file == false && *mod == false {
+		color.Red("You didn't define is it file or module")
+		os1.Exit(1)
 	}
 	cont := ""
 	if init == true && name == "" {
@@ -59,6 +68,7 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 	}
 	if *deploy == true && (*file == true || *cmd == true || *cnfM == true || *filepathP != "" || *commandP != "" || *helpP == true || *initP == true || *nameP != "" || *osP != "" || *archP != "" || *mod == true) {
 		color.Red("Warning!!! Deploy takes only deploy argument")
+		os1.Exit(1)
 	}
 	return filepath, modOrFile, cnf, command, helpP, init, name, os, arch, cont
 }
