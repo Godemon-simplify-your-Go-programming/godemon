@@ -58,7 +58,10 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 		}
 	}
 	if *deploy == true && (*file==true || *cmd == true || *cnfM==true || *filepathP != "" || *commandP != "" || *helpP ==true || *initP==true || *nameP!="" || *osP != "" || *archP != "" || *mod ==true){
-		color.Red("Warning!!! Deploy takes only deploy argument")
+		color.Yellow("Warning!!! Deploy takes only deploy argument")
+	}
+	if *cnfM == true && *commandP == "" {
+		color.Red("You must specify a command")
 	}
 	return filepath, modOrFile, cnf, command, helpP, init, name, os, arch, cont
 }
