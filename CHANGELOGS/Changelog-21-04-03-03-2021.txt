@@ -1,0 +1,8 @@
+- Added function that edit the 'project.json' by using CLI tools
+- Models package refactored - created files:
+    1. command.go
+    2. error.go
+    3. file.go
+    4. project.go
+    5. var.go
+- Added changelogs directory

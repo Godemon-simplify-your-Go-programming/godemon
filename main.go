@@ -1,10 +1,10 @@
-//TODO - add windows full support
-//TODO - create Windows installer
-//TODO - golang delve support
-//TODO - create new README.md
-//TODO - create new WIKI
-//TODO - add CMD option support
+//TODO - create Windows installer - Patryk
+//TODO - create new README.md - Norbert
+//TODO - create new WIKI - Norbert
 
+//TODO - WebPage
+
+//TODO - 21.06 - golang delve support
 package main
 
 import (
