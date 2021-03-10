@@ -15,6 +15,14 @@
 When you're using Linux or MacOS you can choose the option of installing godemon using Godemon-installer,
 the second way is dwonloading the source code from releases, and building it using Go compiler.
 
+### How to use godemon-installer
+```shell
+git clone https://github.com/Godemon-simplify-your-Go-programming/Godemon-installer
+cd Godemon-installer
+g++ src/godemon-installer.cpp -o godemon-installer
+./godemon-installer
+```
+
 ### How to build source code?
 
 ```shell
