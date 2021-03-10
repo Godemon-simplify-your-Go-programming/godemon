@@ -1,7 +1,3 @@
-# I'm very sorry, for now windows version doesn't work
-
----
-
 # Godemon
 
 ##### Compatible with - Windows, Linux and MacOS
