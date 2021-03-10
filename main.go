@@ -16,6 +16,7 @@ import (
 	"godemon/errors"
 	"godemon/execs"
 	"godemon/hotReload"
+	"godemon/prepareProject"
 	"os"
 	"os/exec"
 )
@@ -26,8 +27,12 @@ func main() {
 	version := "21.04"
 	color.HiMagenta("Welcome to godemon " + version)
 	doneChan := make(chan bool)
-	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont, addFile := cliTools.LoadCMD("", "")
+	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont, addFile, addCmd := cliTools.LoadCMD("", "")
 	if cont == "Exit" {
+		os.Exit(1)
+	}
+	if addCmd == true {
+		prepareProject.ModifyJSONCommands(modOrFile, name, filepath)
 		os.Exit(1)
 	}
 	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version, init, name, oso, arch, hostInfo[0], addFile)

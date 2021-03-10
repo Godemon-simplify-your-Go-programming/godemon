@@ -1,0 +1,3 @@
+- README.md updated
+- Added CLI editing of project.json
+- Bugs fixed

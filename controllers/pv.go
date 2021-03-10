@@ -7,7 +7,6 @@ import (
 	"godemon/models"
 	"godemon/prepareProject"
 	"io/ioutil"
-	"bytes"
 	"os"
 	"os/exec"
 )
@@ -78,16 +77,7 @@ func cnfFunc(command string, filepath string, modOrFile string) (string, string)
 	return filepath, modOrFile
 }
 
-func addFileJson(name string, path string){
-	var project models.Project
-	var file models.File
-	file.Name = name
-	file.Path = path
-	data, _ := ioutil.ReadFile("project.json")
-	json.Unmarshal(data,&project)
-	project.Files = append(project.Files,file)
-	var bytes = new(bytes.Buffer)
-	json.NewEncoder(bytes).Encode(project)
-	ioutil.WriteFile("project.json",bytes.Bytes(),0644)
+func addFileJson(name string, path string) {
+	prepareProject.ModifyJSONFiles(name, path)
 	os.Exit(1)
 }

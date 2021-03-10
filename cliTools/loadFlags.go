@@ -6,7 +6,7 @@ import (
 	"go/build"
 )
 
-func LoadCMD(filepath string, modOrFile string) (string, string, string, string, *bool, bool, string, string, string, string, bool) {
+func LoadCMD(filepath string, modOrFile string) (string, string, string, string, *bool, bool, string, string, string, string, bool, bool) {
 	var filepathP *string
 	cmd := flag.Bool("cmd", false, "a bool")
 	cnfM := flag.Bool("cnf", false, "a bool")
@@ -20,9 +20,16 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 	archP := flag.String("arch", "", "a string")
 	mod := flag.Bool("mod", false, "a bool")
 	file := flag.Bool("file", false, "a bool")
-	addFileM := flag.Bool("addFile",false,"a bool")
+	addFileM := flag.Bool("addFile", false, "a bool")
+	addCommandM := flag.Bool("addCommand", false, "a bool")
 	flag.Parse()
 	cnf := ""
+	modOrFile = ""
+	if *mod == true {
+		modOrFile = "mod"
+	} else if *file == true {
+		modOrFile = "mod"
+	}
 	addFile := false
 	if *cmd == true {
 		cnf = "cmd"
@@ -41,12 +48,7 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 	os := *osP
 	arch := *archP
 	command := *commandP
-	modOrFile = ""
-	if *mod == true {
-		modOrFile = "mod"
-	} else if *file == true {
-		modOrFile = "mod"
-	}
+
 	cont := ""
 	if init == true && name == "" {
 		color.Red("Missing parameter: -name")
@@ -61,11 +63,11 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 			os = build.Default.GOOS
 		}
 	}
-	if *deploy == true && (*file==true || *cmd == true || *cnfM==true || *filepathP != "" || *commandP != "" || *helpP ==true || *initP==true || *nameP!="" || *osP != "" || *archP != "" || *mod ==true){
+	if *deploy == true && (*file == true || *cmd == true || *cnfM == true || *filepathP != "" || *commandP != "" || *helpP == true || *initP == true || *nameP != "" || *osP != "" || *archP != "" || *mod == true) {
 		color.Yellow("Warning!!! Deploy takes only deploy argument")
 	}
 	if *cnfM == true && *commandP == "" {
 		color.Red("You must specify a command")
 	}
-	return filepath, modOrFile, cnf, command, helpP, init, name, os, arch, cont, addFile
+	return filepath, modOrFile, cnf, command, helpP, init, name, os, arch, cont, addFile, *addCommandM
 }
