@@ -3,3 +3,4 @@
 - Added possibility of updating project info
 - Code refactored, added file:
     - update.go
+- Readme.md updated

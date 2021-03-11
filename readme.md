@@ -6,6 +6,7 @@
 1. Go compiler,
 2. Git,
 3. Wget ( if you're using linux )
+4. G++
 
 ### How to install Godemon?
 When you're using Linux or MacOS you can choose the option of installing godemon using Godemon-installer,
