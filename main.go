@@ -1,6 +1,7 @@
 //TODO - create Windows installer - Patryk
 //TODO - create new README.md - Norbert
 //TODO - create new WIKI - Norbert
+//TODO - flags in commands
 
 //TODO - WebPage
 
