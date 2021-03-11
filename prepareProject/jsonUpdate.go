@@ -43,3 +43,18 @@ func ModifyJSONVars(key string, value string) {
 	err = ioutil.WriteFile("project.json", file, 0644)
 	errors.ErrorHandle(err)
 }
+
+func ModifyJSONInfo(name string, os string, arch string, option string) {
+	project := LoadProjectInfo()
+	if option == "name" {
+		project.Name = name
+	} else if option == "arch" {
+		project.Arch = arch
+	} else if os == "os" {
+		project.OS = os
+	}
+	file, err := json.MarshalIndent(project, "", "	")
+	errors.ErrorHandle(err)
+	err = ioutil.WriteFile("project.json", file, 0644)
+	errors.ErrorHandle(err)
+}

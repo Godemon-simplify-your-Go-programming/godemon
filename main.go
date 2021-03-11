@@ -27,9 +27,32 @@ func main() {
 	version := "21.06"
 	color.HiMagenta("Welcome to godemon " + version)
 	doneChan := make(chan bool)
-	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont, addFile, addCmd, addVar, key, value := cliTools.LoadCMD("", "")
+	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont, addFile, addCmd, addVar, key, value, updateName, updateArch, updateOS := cliTools.LoadCMD("", "")
 	if cont == "Exit" {
 		os.Exit(1)
+	}
+	option := ""
+	if updateName == true {
+		if name == "" {
+			color.Red("Name is empty")
+			os.Exit(1)
+		}
+		option = "name"
+		prepareProject.ModifyJSONInfo(name, oso, arch, option)
+	} else if updateArch == true {
+		if arch == "" {
+			color.Red("Arch parameter is empty")
+			os.Exit(1)
+		}
+		option = "arch"
+		prepareProject.ModifyJSONInfo(name, oso, arch, option)
+	} else if updateOS == true {
+		if oso == "" {
+			color.Red("OS parameter is empty")
+			os.Exit(1)
+		}
+		option = "os"
+		prepareProject.ModifyJSONInfo(name, oso, arch, option)
 	}
 	if addVar == true {
 		if key == "" || value == "" {

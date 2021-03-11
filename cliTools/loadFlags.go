@@ -6,7 +6,7 @@ import (
 	"go/build"
 )
 
-func LoadCMD(filepath string, modOrFile string) (string, string, string, string, *bool, bool, string, string, string, string, bool, bool, bool, string, string) {
+func LoadCMD(filepath string, modOrFile string) (string, string, string, string, *bool, bool, string, string, string, string, bool, bool, bool, string, string, bool, bool, bool) {
 	var filepathP *string
 	cmd := flag.Bool("cmd", false, "a bool")
 	cnfM := flag.Bool("cnf", false, "a bool")
@@ -25,6 +25,9 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 	addVariable := flag.Bool("addVariable", false, "a bool")
 	value := flag.String("value", "", "a string")
 	key := flag.String("key", "", "a string")
+	updateName := flag.Bool("updateName", false, "a bool")
+	updateArch := flag.Bool("updateArch", false, "a bool")
+	updateOS := flag.Bool("updateOS", false, "a bool")
 	flag.Parse()
 	cnf := ""
 	modOrFile = ""
@@ -72,5 +75,5 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 	if *cnfM == true && *commandP == "" {
 		color.Red("You must specify a command")
 	}
-	return filepath, modOrFile, cnf, command, helpP, init, name, os, arch, cont, addFile, *addCommandM, *addVariable, *key, *value
+	return filepath, modOrFile, cnf, command, helpP, init, name, os, arch, cont, addFile, *addCommandM, *addVariable, *key, *value, *updateName, *updateArch, *updateOS
 }

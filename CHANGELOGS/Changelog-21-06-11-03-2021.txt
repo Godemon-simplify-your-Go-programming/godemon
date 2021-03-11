@@ -1,2 +1,3 @@
 - Updated version,
 - Added possibility of updating Variables in project.json by using CLI
+- Added possibility of updating project info
