@@ -24,14 +24,25 @@ import (
 func main() {
 	hostInfo := [2]string{build.Default.GOOS, build.Default.GOARCH}
 	color.Cyan("Godemon starting...")
-	version := "21.04 LTS"
+	version := "21.06"
 	color.HiMagenta("Welcome to godemon " + version)
 	doneChan := make(chan bool)
-	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont, addFile, addCmd := cliTools.LoadCMD("", "")
+	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont, addFile, addCmd, addVar, key, value := cliTools.LoadCMD("", "")
 	if cont == "Exit" {
 		os.Exit(1)
 	}
+	if addVar == true {
+		if key == "" || value == "" {
+			color.Red("Key or value is empty")
+			os.Exit(1)
+		}
+		prepareProject.ModifyJSONVars(key, value)
+		os.Exit(1)
+	}
 	if addCmd == true {
+		if name == "" || modOrFile == "" {
+			color.Red("Name is empty or option isn't specified")
+		}
 		prepareProject.ModifyJSONCommands(modOrFile, name, filepath)
 		os.Exit(1)
 	}

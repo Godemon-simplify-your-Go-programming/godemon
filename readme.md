@@ -79,3 +79,8 @@ touch main.go
 godemon -addFile -name=main -path=./main.go
 ```
 Now godemon is watching changes of main.go file
+
+### How to add command using CLI?
+```shell
+godemon -addFile -name=<name> -<mod/file> -path=<pathToFileOrModule>
+```
