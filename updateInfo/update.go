@@ -36,13 +36,11 @@ func Update(updateName bool, name string, updateArch bool, arch string, oso stri
 			os.Exit(1)
 		}
 		prepareProject.ModifyJSONVars(key, value)
-		os.Exit(1)
 	}
 	if addCmd == true {
 		if name == "" || modOrFile == "" {
 			color.Red("Name is empty or option isn't specified")
 		}
 		prepareProject.ModifyJSONCommands(modOrFile, name, filepath)
-		os.Exit(1)
 	}
 }

@@ -4,3 +4,4 @@
 - Code refactored, added file:
     - update.go
 - Readme.md updated
+- Error handling and added log about that work is done

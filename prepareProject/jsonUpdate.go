@@ -2,9 +2,11 @@ package prepareProject
 
 import (
 	"encoding/json"
+	"github.com/fatih/color"
 	"godemon/errors"
 	"godemon/models"
 	"io/ioutil"
+	os2 "os"
 )
 
 func ModifyJSONCommands(option string, name string, path string) {
@@ -30,6 +32,8 @@ func ModifyJSONFiles(name string, path string) {
 	errors.ErrorHandle(err)
 	err = ioutil.WriteFile("project.json", file, 0644)
 	errors.ErrorHandle(err)
+	color.Green("Everything done, data updated")
+	os2.Exit(1)
 }
 
 func ModifyJSONVars(key string, value string) {
@@ -42,6 +46,8 @@ func ModifyJSONVars(key string, value string) {
 	errors.ErrorHandle(err)
 	err = ioutil.WriteFile("project.json", file, 0644)
 	errors.ErrorHandle(err)
+	color.Green("Everything done, data updated")
+	os2.Exit(1)
 }
 
 func ModifyJSONInfo(name string, os string, arch string, option string) {
@@ -57,4 +63,6 @@ func ModifyJSONInfo(name string, os string, arch string, option string) {
 	errors.ErrorHandle(err)
 	err = ioutil.WriteFile("project.json", file, 0644)
 	errors.ErrorHandle(err)
+	color.Green("Everything done, data updated")
+	os2.Exit(1)
 }
