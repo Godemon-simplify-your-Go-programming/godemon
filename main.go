@@ -16,7 +16,7 @@ import (
 	"godemon/errors"
 	"godemon/execs"
 	"godemon/hotReload"
-	"godemon/prepareProject"
+	"godemon/updateInfo"
 	"os"
 	"os/exec"
 )
@@ -31,44 +31,7 @@ func main() {
 	if cont == "Exit" {
 		os.Exit(1)
 	}
-	option := ""
-	if updateName == true {
-		if name == "" {
-			color.Red("Name is empty")
-			os.Exit(1)
-		}
-		option = "name"
-		prepareProject.ModifyJSONInfo(name, oso, arch, option)
-	} else if updateArch == true {
-		if arch == "" {
-			color.Red("Arch parameter is empty")
-			os.Exit(1)
-		}
-		option = "arch"
-		prepareProject.ModifyJSONInfo(name, oso, arch, option)
-	} else if updateOS == true {
-		if oso == "" {
-			color.Red("OS parameter is empty")
-			os.Exit(1)
-		}
-		option = "os"
-		prepareProject.ModifyJSONInfo(name, oso, arch, option)
-	}
-	if addVar == true {
-		if key == "" || value == "" {
-			color.Red("Key or value is empty")
-			os.Exit(1)
-		}
-		prepareProject.ModifyJSONVars(key, value)
-		os.Exit(1)
-	}
-	if addCmd == true {
-		if name == "" || modOrFile == "" {
-			color.Red("Name is empty or option isn't specified")
-		}
-		prepareProject.ModifyJSONCommands(modOrFile, name, filepath)
-		os.Exit(1)
-	}
+	updateInfo.Update(updateName, name, updateArch, arch, oso, updateOS, addVar, key, value, addCmd, modOrFile, filepath)
 	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version, init, name, oso, arch, hostInfo[0], addFile)
 	for true {
 		go func(doneChan chan bool) {
