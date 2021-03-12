@@ -17,6 +17,7 @@ import (
 	"godemon/errors"
 	"godemon/execs"
 	"godemon/hotReload"
+	"godemon/models"
 	"godemon/updateInfo"
 	"os"
 	"os/exec"
@@ -33,7 +34,8 @@ func main() {
 		os.Exit(1)
 	}
 	updateInfo.Update(updateName, name, updateArch, arch, oso, updateOS, addVar, key, value, addCmd, modOrFile, filepath)
-	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version, init, name, oso, arch, hostInfo[0], addFile)
+	var flags []models.Flag
+	filepath, modOrFile, flags = controllers.ProgramStarting(flags, &cnf, filepath, modOrFile, command, help, version, init, name, oso, arch, hostInfo[0], addFile)
 	for true {
 		go func(doneChan chan bool) {
 			defer func() {
@@ -52,7 +54,7 @@ func main() {
 				cmd.Stderr = os.Stderr
 				err = cmd.Run()
 				errors.ErrorHandle(err)
-				go execs.ExecMOD(hostInfo[0])
+				go execs.ExecMOD(hostInfo[0], flags)
 			} else if modOrFile == "file" {
 				cliTools.TimeLog()
 				go execs.ExecFile(filepath)
