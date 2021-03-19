@@ -27,8 +27,6 @@ func deploy(oso string, archL string, hOS string) {
 		name = name + ".exe"
 	}
 	cmd := exec.Command("env", goos, arch, "go", "build", "-o", name)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
 	err := cmd.Run()
 	errors.ErrorHandle(err)
 	os.Exit(1)
@@ -53,8 +51,6 @@ func initialize(name string, arch string, oso string) {
 	err = ioutil.WriteFile("project.json", file, 0644)
 	errors.ErrorHandle(err)
 	cmd := exec.Command("go", "mod", "init", name)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
 	err = cmd.Run()
 	errors.ErrorHandle(err)
 	os.Exit(1)
