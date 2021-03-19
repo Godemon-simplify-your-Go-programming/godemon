@@ -2,6 +2,8 @@
 //TODO - create new README.md - Norbert
 //TODO - create new WIKI - Norbert
 //TODO - flags in commands
+//TODO - update installer - add changelogs directory
+//TODO - update updater - add changelogs updating
 
 //TODO - WebPage
 
