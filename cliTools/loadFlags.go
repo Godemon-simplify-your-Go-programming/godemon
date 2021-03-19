@@ -4,6 +4,8 @@ import (
 	"flag"
 	"github.com/fatih/color"
 	"go/build"
+	"os"
+	"os/exec"
 )
 
 func LoadCMD(filepath string, modOrFile string) (string, string, string, string, *bool, bool, string, string, string, string, bool, bool, bool, string, string, bool, bool, bool) {
@@ -28,7 +30,17 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 	updateName := flag.Bool("updateName", false, "a bool")
 	updateArch := flag.Bool("updateArch", false, "a bool")
 	updateOS := flag.Bool("updateOS", false, "a bool")
+	changes := flag.Bool("logChanges", false, "a bool")
 	flag.Parse()
+	if *changes == true {
+		godemonPath := os.Getenv("GODEMON")
+		path := godemonPath + "/CHANGELOGS/Changes.txt"
+		cmd := exec.Command("cat", path)
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+		cmd.Run()
+		os.Exit(1)
+	}
 	cnf := ""
 	modOrFile = ""
 	if *mod == true {
