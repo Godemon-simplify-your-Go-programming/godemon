@@ -48,8 +48,6 @@ func main() {
 				cliTools.TimeLog()
 				var cmd *exec.Cmd
 				cmd = hotReload.CMDhotReload(hostInfo)
-				cmd.Stdout = os.Stdout
-				cmd.Stderr = os.Stderr
 				err = cmd.Run()
 				errors.ErrorHandle(err)
 				go execs.ExecMOD(hostInfo[0])
