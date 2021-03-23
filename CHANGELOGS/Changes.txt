@@ -32,3 +32,4 @@ CHANGES: 21-06-19-03-2021
 
 CHANGES: 21-06-23-03-2021
 - Added -version flag
+- Code cleaned up

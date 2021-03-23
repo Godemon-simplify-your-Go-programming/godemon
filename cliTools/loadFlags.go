@@ -4,8 +4,7 @@ import (
 	"flag"
 	"github.com/fatih/color"
 	"go/build"
-	"os"
-	"os/exec"
+	"godemon/godemonInfo"
 )
 
 func LoadCMD(filepath string, modOrFile string, version string) (string, string, string, string, *bool, bool, string, string, string, string, bool, bool, bool, string, string, bool, bool, bool) {
@@ -34,18 +33,10 @@ func LoadCMD(filepath string, modOrFile string, version string) (string, string,
 	changes := flag.Bool("logChanges", false, "a bool")
 	flag.Parse()
 	if *versionF == true {
-		fullVersion := "GODEMON-" + version + "-" + build.Default.GOOS + "_" + build.Default.GOARCH
-		color.Yellow(fullVersion)
-		os.Exit(1)
+		godemonInfo.LogVersion(version)
 	}
 	if *changes == true {
-		godemonPath := os.Getenv("GODEMON")
-		path := godemonPath + "/CHANGELOGS/Changes.txt"
-		cmd := exec.Command("cat", path)
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
-		cmd.Run()
-		os.Exit(1)
+		godemonInfo.LogChanges()
 	}
 	cnf := ""
 	modOrFile = ""
