@@ -8,7 +8,7 @@ import (
 	"os/exec"
 )
 
-func LoadCMD(filepath string, modOrFile string) (string, string, string, string, *bool, bool, string, string, string, string, bool, bool, bool, string, string, bool, bool, bool) {
+func LoadCMD(filepath string, modOrFile string, version string) (string, string, string, string, *bool, bool, string, string, string, string, bool, bool, bool, string, string, bool, bool, bool) {
 	var filepathP *string
 	cmd := flag.Bool("cmd", false, "a bool")
 	cnfM := flag.Bool("cnf", false, "a bool")
@@ -30,8 +30,14 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 	updateName := flag.Bool("updateName", false, "a bool")
 	updateArch := flag.Bool("updateArch", false, "a bool")
 	updateOS := flag.Bool("updateOS", false, "a bool")
+	versionF := flag.Bool("version", false, "a bool")
 	changes := flag.Bool("logChanges", false, "a bool")
 	flag.Parse()
+	if *versionF == true {
+		fullVersion := "GODEMON-" + version + "-" + build.Default.GOOS + "_" + build.Default.GOARCH
+		color.Yellow(fullVersion)
+		os.Exit(1)
+	}
 	if *changes == true {
 		godemonPath := os.Getenv("GODEMON")
 		path := godemonPath + "/CHANGELOGS/Changes.txt"

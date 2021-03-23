@@ -30,7 +30,7 @@ func main() {
 	version := "21.06"
 	color.HiMagenta("Welcome to godemon " + version)
 	doneChan := make(chan bool)
-	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont, addFile, addCmd, addVar, key, value, updateName, updateArch, updateOS := cliTools.LoadCMD("", "")
+	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont, addFile, addCmd, addVar, key, value, updateName, updateArch, updateOS := cliTools.LoadCMD("", "", version)
 	if cont == "Exit" {
 		os.Exit(1)
 	}
