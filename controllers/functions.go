@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func ProgramStarting(cnf *string, filepath string, modOrFile string, command string, help *bool, version string, init bool, name string, oso string, arch string, hOS string, addFile bool) (string, string) {
+func ProgramStarting(cnf *string, filepath string, modOrFile string, command string, help *bool, init bool, name string, oso string, arch string, hOS string, addFile bool) (string, string) {
 	if *cnf == "cmd" {
 
 	} else if *cnf == "cnf" {
@@ -25,7 +25,7 @@ func ProgramStarting(cnf *string, filepath string, modOrFile string, command str
 		(*cnf == "" && filepath == "" && modOrFile == "" &&
 			command == "" && *help == false && init == false &&
 			name == "" && oso == "" && arch == "") {
-		models.HelpCLI(version)
+		models.HelpCLI()
 	}
 	return filepath, modOrFile
 }

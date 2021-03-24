@@ -4,6 +4,7 @@
 //TODO - flags in commands
 //TODO - update installer - add changelogs directory
 //TODO - update updater - add changelogs updating
+//TODO - creating version.txt in .godemon/.infos
 
 //TODO - WebPage
 
@@ -18,6 +19,7 @@ import (
 	"godemon/controllers"
 	"godemon/errors"
 	"godemon/execs"
+	"godemon/godemonInfo"
 	"godemon/hotReload"
 	"godemon/updateInfo"
 	"os"
@@ -26,16 +28,16 @@ import (
 
 func main() {
 	hostInfo := [2]string{build.Default.GOOS, build.Default.GOARCH}
-	color.Cyan("Godemon starting...")
-	version := "21.06"
-	color.HiMagenta("Welcome to godemon " + version)
 	doneChan := make(chan bool)
-	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont, addFile, addCmd, addVar, key, value, updateName, updateArch, updateOS := cliTools.LoadCMD("", "", version)
+	version := godemonInfo.LoadVersion()
+	filepath, modOrFile, cnf, command, help, init, name, oso, arch, cont, addFile, addCmd, addVar, key, value, updateName, updateArch, updateOS := cliTools.LoadCMD("", "")
 	if cont == "Exit" {
 		os.Exit(1)
 	}
 	updateInfo.Update(updateName, name, updateArch, arch, oso, updateOS, addVar, key, value, addCmd, modOrFile, filepath)
-	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, version, init, name, oso, arch, hostInfo[0], addFile)
+	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, init, name, oso, arch, hostInfo[0], addFile)
+	color.Cyan("Godemon starting...")
+	color.HiMagenta("Welcome to godemon " + version)
 	for true {
 		go func(doneChan chan bool) {
 			defer func() {

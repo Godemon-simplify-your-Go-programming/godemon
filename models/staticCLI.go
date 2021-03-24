@@ -3,10 +3,12 @@ package models
 import (
 	"fmt"
 	"github.com/fatih/color"
+	"godemon/godemonInfo"
 	"os"
 )
 
-func HelpCLI(version string) {
+func HelpCLI() {
+	version := godemonInfo.LoadVersion()
 	color.Green("Godemon %v:", version)
 	fmt.Printf("\nWhat flags do we have in Godemon? \n	1. Methods of godemon's runtime:" +
 		"\n		a) -cnf - using project.json file to load godemon project specifications,\n		b) -cmd - manualy passing godemon project specification using the CLI,\n		c) -deploy - deploying the project using specifications from project.json or CLI\n" +
