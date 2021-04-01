@@ -6,11 +6,12 @@ import (
 	"os"
 )
 
-func ProgramStarting(cnf *string, filepath string, modOrFile string, command string, help *bool, init bool, name string, oso string, arch string, hOS string, addFile bool) (string, string) {
+func ProgramStarting(cnf *string, filepath string, modOrFile string, command string, help *bool, init bool, name string, oso string, arch string, hOS string, addFile bool) (string, string, []string) {
+	var flagsC []string
 	if *cnf == "cmd" {
 
 	} else if *cnf == "cnf" {
-		filepath, modOrFile = cnfFunc(command, "", "")
+		filepath, modOrFile, flagsC = cnfFunc(command, "", "")
 	} else if *cnf == "deploy" {
 		deploy(oso, arch, hOS)
 	} else if init == true {
@@ -27,5 +28,5 @@ func ProgramStarting(cnf *string, filepath string, modOrFile string, command str
 			name == "" && oso == "" && arch == "") {
 		models.HelpCLI()
 	}
-	return filepath, modOrFile
+	return filepath, modOrFile, flagsC
 }

@@ -37,3 +37,6 @@ CHANGES: 21-06-23-03-2021
 CHANGES: 21-06-24-03-2021
 - Added version.txt to godemon path
 - code cleaned up
+
+CHANGES: 21-06-01-04-2021
+- Added flags in commands support

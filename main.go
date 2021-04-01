@@ -35,7 +35,7 @@ func main() {
 		os.Exit(1)
 	}
 	updateInfo.Update(updateName, name, updateArch, arch, oso, updateOS, addVar, key, value, addCmd, modOrFile, filepath)
-	filepath, modOrFile = controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, init, name, oso, arch, hostInfo[0], addFile)
+	filepath, modOrFile, flagsC := controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, init, name, oso, arch, hostInfo[0], addFile)
 	color.Cyan("Godemon starting...")
 	color.HiMagenta("Welcome to godemon " + version)
 	for true {
@@ -54,7 +54,7 @@ func main() {
 				cmd = hotReload.CMDhotReload(hostInfo)
 				err = cmd.Run()
 				errors.ErrorHandle(err)
-				go execs.ExecMOD(hostInfo[0])
+				go execs.ExecMOD(hostInfo[0], flagsC)
 			} else if modOrFile == "file" {
 				cliTools.TimeLog()
 				go execs.ExecFile(filepath)

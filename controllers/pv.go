@@ -56,8 +56,9 @@ func initialize(name string, arch string, oso string) {
 	os.Exit(1)
 }
 
-func cnfFunc(command string, filepath string, modOrFile string) (string, string) {
+func cnfFunc(command string, filepath string, modOrFile string) (string, string, []string) {
 	var err error
+	var flagsC []string
 	project := prepareProject.LoadProjectInfo()
 	for i := 0; i < len(project.Commands); i++ {
 		if command == project.Commands[i].Name {
@@ -67,10 +68,11 @@ func cnfFunc(command string, filepath string, modOrFile string) (string, string)
 			if modOrFile == "file" {
 				filepath = project.Commands[i].Path
 			}
+			flagsC = project.Commands[i].Flags
 		}
 	}
 	cliTools.CheckModOrPath(modOrFile, filepath)
-	return filepath, modOrFile
+	return filepath, modOrFile, flagsC
 }
 
 func addFileJson(name string, path string) {

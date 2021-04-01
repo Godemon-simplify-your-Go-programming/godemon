@@ -7,16 +7,16 @@ import (
 	"os/exec"
 )
 
-func execMOD(hOS string) {
+func execMOD(hOS string, c []string) {
 	name := prepareProject.LoadProjectInfo().Name
 	if hOS == "windows" {
-		cmd := exec.Command("app-godemon-app-godemon-tmp-generated" + "-" + name + ".exe")
+		cmd := exec.Command("app-godemon-app-godemon-tmp-generated"+"-"+name+".exe", c...)
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		err := cmd.Run()
 		errors.ErrorHandle(err)
 	} else {
-		cmd := exec.Command("./app-godemon-app-godemon-tmp-generated" + "-" + name)
+		cmd := exec.Command("./app-godemon-app-godemon-tmp-generated"+"-"+name, c...)
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		err := cmd.Run()
