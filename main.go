@@ -1,14 +1,14 @@
 //TODO - create Windows installer - Patryk
 //TODO - create new README.md - Norbert
 //TODO - create new WIKI - Norbert
-//TODO - flags in commands
+
 //TODO - update installer - add changelogs directory
 //TODO - update updater - add changelogs updating
 //TODO - creating version.txt in .godemon/.infos
 
 //TODO - WebPage
 
-//TODO - 21.06 - golang delve support
+//TODO - 21.11 - golang delve support
 package main
 
 import (
