@@ -6,6 +6,7 @@ import (
 )
 
 func LogChanges() {
+
 	godemonPath := os.Getenv("GODEMON")
 	path := godemonPath + "/CHANGELOGS/Changes.txt"
 	cmd := exec.Command("cat", path)
