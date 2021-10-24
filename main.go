@@ -11,6 +11,8 @@
 //TODO - 21.12 - user errors
 //TODO - 21.12 - windows installer
 //TODO - 21.12 - help and etc. sections to update
+
+//!!! - REAPAIR WINDOWS VARIABLES - GODEMON and PATH
 package main
 
 import (
