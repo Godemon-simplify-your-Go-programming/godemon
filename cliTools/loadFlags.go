@@ -2,59 +2,60 @@ package cliTools
 
 import (
 	"flag"
-	"github.com/fatih/color"
 	"go/build"
 	"godemon/godemonInfo"
+
+	"github.com/fatih/color"
 )
 
 func LoadCMD(filepath string, modOrFile string) (string, string, string, string, *bool, bool, string, string, string, string, bool, bool, bool, string, string, bool, bool, bool) {
 	var filepathP *string
-	cmd := flag.Bool("cmd", false, "CMD mode")
-	cnfM := flag.Bool("cnf", false, "project.json mode")
-	deploy := flag.Bool("deploy", false, "building project using info from project.json")
-	filepathP = flag.String("path", "", "path to file or dir")
-	commandP := flag.String("command", "", "command name")
-	helpP := flag.Bool("help", false, "help section")
-	initP := flag.Bool("init", false, "initialize project")
-	nameP := flag.String("name", "", "name of project/file/command")
-	osP := flag.String("os", "", "os variable")
-	archP := flag.String("arch", "", "architecture variable")
-	mod := flag.Bool("mod", false, "module option")
-	file := flag.Bool("file", false, "file option")
-	addFileM := flag.Bool("addFile", false, "add file to watching list in project.json")
-	addCommandM := flag.Bool("addCommand", false, "add command to commands list in project.json")
-	addVariable := flag.Bool("addVariable", false, "add tmp variable to project.json")
-	value := flag.String("value", "", "value of ...")
-	key := flag.String("key", "", "key of ...")
-	updateName := flag.Bool("updateName", false, "update name of project")
-	updateArch := flag.Bool("updateArch", false, "update arch of project")
-	updateOS := flag.Bool("updateOS", false, "update os of project")
-	versionF := flag.Bool("version", false, "print version of godemon")
-	changes := flag.Bool("logChanges", false, "print changes")
+	cmd := flag.Bool("cmd", false, "Manualy passing godemon project specification using the CLI.")
+	cnfM := flag.Bool("cnf", false, "Using project.json file to load godemon project specifications.")
+	deploy := flag.Bool("deploy", false, "Deploying the project using specifications from project.json or CLI")
+	filepathP = flag.String("path", "", "Path to file or dir")
+	commandP := flag.String("command", "", "command's name (in project.json)")
+	helpP := flag.Bool("help", false, "Help section")
+	initP := flag.Bool("init", false, "Initialize project")
+	nameP := flag.String("name", "", "Name of project/file/command")
+	osP := flag.String("os", "", "OS variable")
+	archP := flag.String("arch", "", "Architecture variable")
+	mod := flag.Bool("mod", false, "Using as module")
+	file := flag.Bool("file", false, "Using as single file")
+	addFileM := flag.Bool("addFile", false, "Add file to watching list in project.json")
+	addCommandM := flag.Bool("addCommand", false, "Add command to commands list in project.json")
+	addVariable := flag.Bool("addVariable", false, "Add tmp variable to project.json")
+	value := flag.String("value", "", "value of developer variable")
+	key := flag.String("key", "", "key of developer variable")
+	updateName := flag.Bool("updateName", false, "Update name of project")
+	updateArch := flag.Bool("updateArch", false, "Update arch of project")
+	updateOS := flag.Bool("updateOS", false, "Update os of project")
+	versionF := flag.Bool("version", false, "Print version of godemon")
+	changes := flag.Bool("logChanges", false, "Print changes")
 	flag.Parse()
-	if *versionF == true {
+	if *versionF {
 		godemonInfo.LogVersion()
 	}
-	if *changes == true {
+	if *changes {
 		godemonInfo.LogChanges()
 	}
 	cnf := ""
 	modOrFile = ""
-	if *mod == true {
+	if *mod {
 		modOrFile = "mod"
-	} else if *file == true {
+	} else if *file {
 		modOrFile = "mod"
 	}
 	addFile := false
-	if *cmd == true {
+	if *cmd {
 		cnf = "cmd"
-	} else if *cnfM == true {
+	} else if *cnfM {
 		cnf = "cnf"
-	} else if *deploy == true {
+	} else if *deploy {
 		cnf = "deploy"
-	} else if (*cmd == true && *cnfM == true) || (*cmd == true && *deploy == true) || (*cnfM == true && *deploy == true) {
+	} else if (*cmd && *cnfM) || (*cmd && *deploy) || (*cnfM && *deploy) {
 		color.Red("Too many mode parameters")
-	} else if *addFileM == true {
+	} else if *addFileM {
 		addFile = true
 	}
 	filepath = *filepathP
@@ -65,10 +66,10 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 	command := *commandP
 
 	cont := ""
-	if init == true && name == "" {
+	if init && name == "" {
 		color.Red("Missing parameter: -name")
 		cont = "Exit"
-	} else if init == true {
+	} else if init {
 		if arch == "" && os == "" {
 			arch = build.Default.GOARCH
 			os = build.Default.GOOS
@@ -78,10 +79,10 @@ func LoadCMD(filepath string, modOrFile string) (string, string, string, string,
 			os = build.Default.GOOS
 		}
 	}
-	if *deploy == true && (*file == true || *cmd == true || *cnfM == true || *filepathP != "" || *commandP != "" || *helpP == true || *initP == true || *nameP != "" || *osP != "" || *archP != "" || *mod == true) {
+	if *deploy && (*file || *cmd || *cnfM || *filepathP != "" || *commandP != "" || *helpP || *initP || *nameP != "" || *osP != "" || *archP != "" || *mod) {
 		color.Yellow("Warning!!! Deploy takes only deploy argument")
 	}
-	if *cnfM == true && *commandP == "" {
+	if *cnfM && *commandP == "" {
 		color.Red("You must specify a command")
 	}
 	return filepath, modOrFile, cnf, command, helpP, init, name, os, arch, cont, addFile, *addCommandM, *addVariable, *key, *value, *updateName, *updateArch, *updateOS

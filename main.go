@@ -10,7 +10,6 @@
 
 //TODO - 21.12 - user errors
 //TODO - 21.12 - windows installer
-//TODO - 21.12 - help and etc. sections to update
 
 //TODO - 21.12 - check compiler error handling
 //TODO - 21.12 - create error messages
