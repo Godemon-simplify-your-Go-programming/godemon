@@ -24,7 +24,6 @@ import (
 	"godemon/hotReload"
 	"godemon/updateInfo"
 	"os"
-	"os/exec"
 
 	"github.com/fatih/color"
 )
@@ -41,7 +40,7 @@ func main() {
 	filepath, modOrFile, flagsC := controllers.ProgramStarting(&cnf, filepath, modOrFile, command, help, init, name, oso, arch, hostInfo[0], addFile)
 	color.Cyan("Godemon starting...")
 	color.HiMagenta("Welcome to godemon " + version)
-	for true {
+	for {
 		go func(doneChan chan bool) {
 			defer func() {
 				doneChan <- true
@@ -53,8 +52,7 @@ func main() {
 				err = os.Chdir(filepath)
 				errors.ErrorHandle(err)
 				cliTools.TimeLog()
-				var cmd *exec.Cmd
-				cmd = hotReload.CMDhotReload(hostInfo)
+				cmd := hotReload.CMDhotReload(hostInfo)
 				err = cmd.Run()
 				errors.ErrorHandle(err)
 				go execs.ExecMOD(hostInfo[0], flagsC)
