@@ -1,5 +1,6 @@
 CHANGES: 21-11-25/...-10/.../2021
 - Updated help section
+- Reformated errors while compiling user's project
 
 CHANGES: 21-04-03-03-2021
 - Added function that edit the 'project.json' by using CLI tools

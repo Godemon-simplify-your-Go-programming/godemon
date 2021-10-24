@@ -11,7 +11,6 @@
 //TODO - 21.12 - user errors
 //TODO - 21.12 - windows installer
 
-//TODO - 21.12 - check compiler error handling
 //TODO - 21.12 - create error messages
 
 //!!! - REAPAIR WINDOWS VARIABLES - GODEMON and PATH
@@ -58,6 +57,9 @@ func main() {
 				cliTools.TimeLog()
 				cmd := hotReload.CMDhotReload(hostInfo)
 				err = cmd.Run()
+				if !cmd.ProcessState.Success() {
+					color.Red("\nResult of last working version of project: \n")
+				}
 				errors.ErrorHandle(err)
 				go execs.ExecMOD(hostInfo[0], flagsC)
 			} else if modOrFile == "file" {
