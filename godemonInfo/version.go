@@ -1,11 +1,12 @@
 package godemonInfo
 
 import (
-	"github.com/fatih/color"
 	"go/build"
 	"io/ioutil"
 	"os"
 	"strings"
+
+	"github.com/fatih/color"
 )
 
 func LoadVersion() string {

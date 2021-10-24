@@ -1,6 +1,6 @@
-//TODO - create Windows installer - Patryk
-//TODO - create new README.md - Norbert
-//TODO - create new WIKI - Norbert
+//TODO - create Windows installer
+//TODO - create new README.md
+//TODO - create new WIKI
 
 //TODO - update installer - add changelogs directory
 //TODO - update updater - add changelogs updating
@@ -8,12 +8,13 @@
 
 //TODO - WebPage
 
-//TODO - 21.11 - golang delve support
+//TODO - 21.12 - user errors
+//TODO - 21.12 - windows installer
+//TODO - 21.12 - help and etc. sections to update
 package main
 
 import (
 	"fmt"
-	"github.com/fatih/color"
 	"go/build"
 	"godemon/cliTools"
 	"godemon/controllers"
@@ -24,6 +25,8 @@ import (
 	"godemon/updateInfo"
 	"os"
 	"os/exec"
+
+	"github.com/fatih/color"
 )
 
 func main() {
