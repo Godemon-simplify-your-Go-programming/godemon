@@ -1,10 +1,12 @@
-//TODO - create Windows installer
-//TODO - create new README.md
-//TODO - create new WIKI
+//TODO - check all functions
 
-//TODO - update installer - add changelogs directory
-//TODO - update updater - add changelogs updating
-//TODO - creating version.txt in .godemon/.infos
+//TODO - create Windows installer - 21.12
+//TODO - create new README.md - 22.02
+//TODO - create new WIKI - 22.02
+
+//TODO - update installer - add changelogs directory - 21.12
+//TODO - update updater - add changelogs updating - 22.02
+//TODO - creating version.txt in .godemon/.infos - 21.12
 
 //TODO - WebPage
 
@@ -50,7 +52,7 @@ func main() {
 			}()
 			err := controllers.WatchFiles(filepath, hostInfo[0])
 			errors.ErrorHandle(err)
-			fmt.Println("File has been changed")
+			fmt.Println("File has been changed") //TODO - change message
 			if modOrFile == "mod" {
 				err = os.Chdir(filepath)
 				errors.ErrorHandle(err)
